@@ -1,5 +1,6 @@
 using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class UIManager : MonoBehaviour
 
     [Space(5)]
     [Header("---Canvas---")]
-    [SerializeField] private Transform _uiParent = null;
+    [SerializeField] private RectTransform _uiParent = null;
 
     [Space(20)]
     [Header("***Read Only***")]
@@ -17,7 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject _currentUI;
 
     // ============== Hidden Data ==================
-    public enum MenuState { Start, GameSelect, Options, GameInfo }
+    public enum MenuState { Start, GameSelect, Options, GameInfo, Wood }
     public static UIManager Instance;
 
     // =============== Functions ==================
@@ -40,7 +41,7 @@ public class UIManager : MonoBehaviour
 
     /// <summary>
     /// [UI의 상태를 변경해주는 함수]
-    /// 0: 메인메뉴, 1: 마을, 2: 옵션, 3: 게임선택
+    /// 0: 메인메뉴, 1: 마을, 2: 옵션, 3: 게임선택, 4: 장작패기
     /// </summary>
     public void ButtonDown_MenuSelect(MenuState menuIndex)
     {
@@ -50,21 +51,29 @@ public class UIManager : MonoBehaviour
 
     void ChangeMenu(MenuState newState)
     {
+
         _currentState = newState;
 
         //SingleTone
-        foreach (Transform child in _uiParent)
+        if (_uiParent != null)
         {
-            if(!IsOverlayMenu(newState)) Destroy(child.gameObject);
+            foreach (Transform child in _uiParent)
+            {
+                if (!IsOverlayMenu(newState)) Destroy(child.gameObject);
+            }
         }
-
-        //메뉴 생성
-        GameObject uiPrefab = menus[(int)_currentState];
-        if (uiPrefab != null)
+        else
+        {
+            Debug.LogError("UI Parent가 할당되지 않았습니다. UiParent태그 캔버스에 붙이기");
+        }
+            //메뉴 생성
+            GameObject uiPrefab = menus[(int)_currentState];
+        if (uiPrefab != null && _uiParent != null)
         {
             GameObject newMenu = Instantiate(uiPrefab, _uiParent);
             _currentUI = newMenu;
         }
+
     }
 
     public void SetGameInfo(ReFit_U01_GameSelect.GameInfo gameInfo)
@@ -101,5 +110,27 @@ public class UIManager : MonoBehaviour
         }
 
         return isOverlay;
+    }
+
+    // 씬이 로드될 때마다 UI Parent를 다시 찾도록 설정
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _uiParent = GameObject.FindWithTag("UiParent").GetComponent<RectTransform>();
+        ChangeMenu(_currentState);
+    }
+
+    // 게임 씬으로 진입할 때 UI 상태를 게임 UI로 변경하는 함수
+    public void SetGameUI(MenuState gameIndex)
+    {
+        _currentState = gameIndex;
     }
 }

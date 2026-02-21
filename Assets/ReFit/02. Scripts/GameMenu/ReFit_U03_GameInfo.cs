@@ -10,6 +10,8 @@ public class ReFit_U03_GameInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _gameDescText;
     [SerializeField] private TextMeshProUGUI _gameBodyText;
 
+    private UIManager.MenuState _gameIndex;
+
     void Start()
     {
         if (UIManager.Instance != null)
@@ -23,6 +25,7 @@ public class ReFit_U03_GameInfo : MonoBehaviour
         _gameTitleText.text = gameInfo.Name;
         _gameDescText.text = gameInfo.Description;
         _gameBodyText.text = gameInfo.Body;
+        _gameIndex = gameInfo.UIIndex;
     }
 
     public void ButtonDown_Back()
@@ -33,5 +36,6 @@ public class ReFit_U03_GameInfo : MonoBehaviour
     public void ButtonDown_GameStart(int gameIndex)
     {
         SceneManager.LoadScene(gameIndex);
+        Manager.SetGameUI(_gameIndex);
     }
 }

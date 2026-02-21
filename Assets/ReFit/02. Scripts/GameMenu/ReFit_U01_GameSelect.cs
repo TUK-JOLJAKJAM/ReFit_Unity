@@ -13,6 +13,7 @@ public class ReFit_U01_GameSelect : MonoBehaviour
         public string Name;
         public string Description;
         public string Body;
+        public UIManager.MenuState UIIndex;
     }
 
 
