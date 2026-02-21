@@ -9,9 +9,9 @@ public class AxeRotation : MonoBehaviour
 
     // ========== Hidden Datas ===============
     // 도끼 회전
-    private float _minRotationZ = 25f;
-    private float _maxRotationZ = -69f;
-    private float _rotationSpeed = 10f;
+    private float _minRotationZ = 8f;
+    private float _maxRotationZ = -60f;
+    private float _rotationSpeed = 20f;
 
     // 마우스 드래그
     private Vector2 _mouseStartPoint = Vector2.zero;
