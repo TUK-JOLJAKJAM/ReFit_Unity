@@ -46,10 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   menus:
   - {fileID: 4716009995670406543, guid: c337d4afb462dbe4fbf58afceccf8e66, type: 3}
-  - {fileID: 547791211086104072, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
   - {fileID: 547791211086104072, guid: 41de84a81f57f9f459e26f6c4e6f4336, type: 3}
   - {fileID: 547791211086104072, guid: 680c105c0011b8941bb038ea77c1e9ae, type: 3}
-  - {fileID: 547791211086104072, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
+  - {fileID: 547791211086104072, guid: 961f8b39cb2f59c45b6c9d4b26266add, type: 3}
   _uiParent: {fileID: 0}
+  _startSceneState: 0
   _currentState: 0
   _currentUI: {fileID: 0}

@@ -14,7 +14,8 @@ public class ReFit_U00_StartMenu : MonoBehaviour
 
     public void ButtonDown_Start()
     {
-        Manager.ButtonDown_MenuSelect(UIManager.MenuState.GameSelect);
+        Manager.ButtonDown_MenuSelect(UIManager.MenuState.None);
+        Manager.ExitMenu(gameObject);
     }
 
     public void ButtonDown_Exit()

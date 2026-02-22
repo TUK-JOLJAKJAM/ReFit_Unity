@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 1182522254711673171}
   - component: {fileID: 4714165380414743811}
   m_Layer: 5
-  m_Name: ReFit_U03_GameInfo
+  m_Name: ReFit_U02_GameInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

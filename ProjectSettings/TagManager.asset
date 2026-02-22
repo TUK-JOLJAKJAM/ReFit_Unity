@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - UiParent
+  - PointManager
   layers:
   - Default
   - TransparentFX

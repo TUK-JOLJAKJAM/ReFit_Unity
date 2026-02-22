@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ReFit_U01_GameSelect : MonoBehaviour
+public class ReFit_G00_GameSelect : MonoBehaviour
 {
     [SerializeField] public UIManager Manager;
     [SerializeField] public GameInfo[] Games;

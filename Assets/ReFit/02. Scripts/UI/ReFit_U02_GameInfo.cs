@@ -2,15 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ReFit_U03_GameInfo : MonoBehaviour
+public class ReFit_U02_GameInfo : MonoBehaviour
 {
     [SerializeField] public UIManager Manager;
 
     [SerializeField] private TextMeshProUGUI _gameTitleText;
     [SerializeField] private TextMeshProUGUI _gameDescText;
-    [SerializeField] private TextMeshProUGUI _gameBodyText;
-
-    private UIManager.MenuState _gameIndex;
+    [SerializeField] private TextMeshProUGUI _gameBodyText;         
 
     void Start()
     {
@@ -20,22 +18,21 @@ public class ReFit_U03_GameInfo : MonoBehaviour
         }
     }
 
-    public void SetGameInfo(ReFit_U01_GameSelect.GameInfo gameInfo)
+    public void SetGameInfo(ReFit_G00_GameSelect.GameInfo gameInfo)
     {
         _gameTitleText.text = gameInfo.Name;
         _gameDescText.text = gameInfo.Description;
         _gameBodyText.text = gameInfo.Body;
-        _gameIndex = gameInfo.UIIndex;
     }
 
     public void ButtonDown_Back()
     {
-        Manager.ButtonDown_MenuSelect(UIManager.MenuState.GameSelect);
+        Manager.ButtonDown_MenuSelect(UIManager.MenuState.None);
+        Manager.ExitMenu(gameObject);
     }
 
     public void ButtonDown_GameStart(int gameIndex)
     {
         SceneManager.LoadScene(gameIndex);
-        Manager.SetGameUI(_gameIndex);
     }
 }
