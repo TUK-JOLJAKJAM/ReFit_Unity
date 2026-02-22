@@ -766,7 +766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeviceManager_Wood
   TargetObject: {fileID: 926452390}
   DeviceRotation: {x: 0, y: 0, z: 0}
-  portName: COM8
+  portName: COM9
   baudRate: 115200
   lerpSpeed: 10
   filterSmoothing: 0.1
