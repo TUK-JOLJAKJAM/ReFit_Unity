@@ -7,15 +7,25 @@ public class PointManager_Wood : MonoBehaviour
     [Header("*** Read Only***")]
     [SerializeField] private int _point = 0;
     [SerializeField] private bool _isSwinging = false;
+    [SerializeField] private float _totalPlayTime = 0f;
 
 
     // ==================== Hidden Datas ====================
     private bool _isValidSwing = false;
 
     // ==================== Functions =======================
+    private void Awake()
+    {
+        _totalPlayTime = Time.time;
+    }
     public void AddPoint()
     {
         _point++;
+    }
+
+    public int GetTotalTimeSec()
+    {
+        return Mathf.RoundToInt(Time.time - _totalPlayTime);
     }
 
     public void SetValidSwing(bool isValid)

@@ -21,6 +21,7 @@ public class WoodPoint : MonoBehaviour
     {
         //점수 가져오기
         gameData.score = PointManager.GetPoint();
+        gameData.duration_sec = PointManager.GetTotalTimeSec();
 
         string json = JsonUtility.ToJson(gameData, true);
         string path = Path.Combine(Application.persistentDataPath, "WoodGameData.json");
