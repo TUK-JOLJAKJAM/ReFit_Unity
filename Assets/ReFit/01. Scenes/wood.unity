@@ -461,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 1133540170}
     - target: {fileID: 8974963839771455786, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
       propertyPath: gameData.body_part
-      value: SOULDER
+      value: SHOULDER
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
