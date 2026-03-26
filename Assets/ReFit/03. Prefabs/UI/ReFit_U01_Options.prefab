@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 547791211086104072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a7350a6671b14343bac164e7bf6c905, type: 3}
+  m_Script: {fileID: 11500000, guid: 69ff65943f97f0346a1e9a000b5e1256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReFit_U02_GameSelect
   Manager: {fileID: 0}

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,9 @@ public class UIManager : MonoBehaviour
     [Space(5)]
     [Header("---StartScene---")]
     [SerializeField] private MenuState _startSceneState = MenuState.Start;
+
+    [Header("---Effects---")]
+    [SerializeField] Animation _gameStartEffect = null;
 
     [Space(20)]
     [Header("***Read Only***")]
@@ -72,6 +76,7 @@ public class UIManager : MonoBehaviour
         {
             GameObject newMenu = Instantiate(uiPrefab, _uiParent);
             _currentUI = newMenu;
+            newMenu.SetActive(true);
         }
 
     }
@@ -91,6 +96,11 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            if(_currentUI == null)
+            {
+                Debug.LogError("현재 활성화된 UI가 없습니다.");
+                return;
+            }
             _currentUI.TryGetComponent<ReFit_U02_GameInfo>(out ReFit_U02_GameInfo gameInfoUI);
             if (gameInfoUI != null)
             {
@@ -102,6 +112,8 @@ public class UIManager : MonoBehaviour
                 Debug.LogError("게임 정보 UI 컴포넌트를 찾을 수 없습니다.");
             }
         }
+        
+        
     }
 
     // 씬이 로드될 때마다 UI Parent를 다시 찾도록 설정
@@ -117,11 +129,45 @@ public class UIManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _uiParent = GameObject.FindWithTag("UiParent").GetComponent<RectTransform>();
-        ChangeMenu(_currentState);
+        //_currentState = MenuState.None;
     }
 
     public RectTransform GetUIParent()
     {
         return _uiParent;
+    }
+
+    public IEnumerator SetGameStartEffect()
+    {
+        //게임 시작 효과를 설정하는 로직을 여기에 추가
+        //예: 화면 전환, 애니메이션 재생 등
+        Debug.Log("게임 시작 효과 설정");
+        yield return null;
+        
+        if(_gameStartEffect == null)
+        {
+            Debug.LogWarning("게임 시작 효과가 할당되지 않았습니다.");
+            yield break;
+        }
+
+        if (_gameStartEffect != null && _gameStartEffect.isPlaying != true)
+        {
+            _gameStartEffect.Play();
+        }
+
+        while (_gameStartEffect.isPlaying)
+        {
+            yield return null;
+        }
+
+        yield return null;
+    }
+
+    //게임에서 다시 메인으로 돌아올 때 사용하는 함수
+    public void ReturnToMainMenu()
+    {
+        //메인 메뉴 씬으로 이동
+        SceneManager.LoadScene(0);
+        _currentState = MenuState.Start;
     }
 }
