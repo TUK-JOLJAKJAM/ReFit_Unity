@@ -14,6 +14,7 @@ public class GameManager_Wood : MonoBehaviour
     [SerializeField] public DeviceManager_Wood DeviceManager;
     [SerializeField] public PointManager_Wood PointManager;
     [SerializeField] public WoodPoint WoodPoint;
+    [Header("매")]
     //WoodPoint는 PointManager로 기능 이관 해야하고, DeviceManager는 Cube에서 동작하는거 DeviceManager로 옮겨야함
 
     [Space(30)]
@@ -55,8 +56,8 @@ public class GameManager_Wood : MonoBehaviour
             case GameState.GameOver:
                 Debug.Log("게임 오버 상태");
                 _currentState = GameState.Start;
-                WoodPoint.SaveData();
-                UIManager.Instance.ReturnToMainMenu();
+
+                UIManager.Instance.ButtonDown_MenuSelect(UIManager.MenuState.GameResult);
                 break;
         }
     }
@@ -69,8 +70,9 @@ public class GameManager_Wood : MonoBehaviour
         _currentCoroutine = null;
     }
 
-    
-    
-    
-
+    public void EndGame()
+    {
+        WoodPoint.SaveData();
+        UIManager.Instance.ReturnToMainMenu();
+    }
 }

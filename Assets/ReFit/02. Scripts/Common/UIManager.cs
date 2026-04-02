@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject _currentUI = null;
 
     // ============== Hidden Data ==================
-    public enum MenuState { Start, Options, GameInfo, None }
+    public enum MenuState { Start, Options, GameInfo, GameResult, None }
     public static UIManager Instance;
 
     // =============== Functions ==================
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     /// <summary>
     /// [UI의 상태를 변경해주는 함수]
-    /// 0: 메인메뉴, 1: 옵션, 2. 게임 정보, 3: 없음
+    /// 0: 메인메뉴, 1: 옵션, 2. 게임 정보, 3. 게임 결과, 4: 없음
     /// </summary>
     public void ButtonDown_MenuSelect(MenuState menuIndex)
     {
