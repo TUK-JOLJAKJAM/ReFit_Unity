@@ -11858,6 +11858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReFit_U01_GameSelect
       objectReference: {fileID: 0}
+    - target: {fileID: 547791211086104072, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1182522254711673171, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

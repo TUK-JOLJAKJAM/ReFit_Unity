@@ -57,6 +57,7 @@ public class GameManager_Wood : MonoBehaviour
                 Debug.Log("게임 오버 상태");
                 _currentState = GameState.Start;
 
+                WoodPoint.SaveData();
                 UIManager.Instance.ButtonDown_MenuSelect(UIManager.MenuState.GameResult);
                 break;
         }
@@ -68,11 +69,5 @@ public class GameManager_Wood : MonoBehaviour
 
         _currentState = GameState.Playing;
         _currentCoroutine = null;
-    }
-
-    public void EndGame()
-    {
-        WoodPoint.SaveData();
-        UIManager.Instance.ReturnToMainMenu();
     }
 }
