@@ -128,7 +128,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -182,7 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6678e40cbc7afc4d81a89326326455a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReFit_U03_GameInfo
-  Manager: {fileID: 0}
+  UIManager: {fileID: 0}
+  WorldHandler: {fileID: 0}
   _gameTitleText: {fileID: 4329803437505937154}
   _gameDescText: {fileID: 7675933563923686244}
   _gameBodyText: {fileID: 5171639732168852998}

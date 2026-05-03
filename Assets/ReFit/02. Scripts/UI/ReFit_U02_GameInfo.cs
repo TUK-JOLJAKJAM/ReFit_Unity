@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class ReFit_U02_GameInfo : MonoBehaviour
 {
-    [SerializeField] public UIManager Manager;
+    [SerializeField] public UIManager UIManager;
+    [SerializeField] public WorldHandler WorldHandler;
 
     [SerializeField] private TextMeshProUGUI _gameTitleText;
     [SerializeField] private TextMeshProUGUI _gameDescText;
@@ -14,7 +15,8 @@ public class ReFit_U02_GameInfo : MonoBehaviour
     {
         if (UIManager.Instance != null)
         {
-            Manager = UIManager.Instance;
+            UIManager = UIManager.Instance;
+            WorldHandler = WorldHandler.Instance;
         }
     }
 
@@ -27,12 +29,14 @@ public class ReFit_U02_GameInfo : MonoBehaviour
 
     public void ButtonDown_Back()
     {
-        Manager.ButtonDown_MenuSelect(UIManager.MenuState.None);
-        Manager.ExitMenu(gameObject);
+        UIManager.ButtonDown_MenuSelect(UIManager.MenuState.None);
+        UIManager.ExitMenu(gameObject);
     }
 
     public void ButtonDown_GameStart(int gameIndex)
     {
-        SceneManager.LoadScene(gameIndex);
+        Debug.Log(gameIndex);
+        WorldHandler.ChangeWorldInt(gameIndex + 1);
+        UIManager.ExitMenu(gameObject);
     }
 }

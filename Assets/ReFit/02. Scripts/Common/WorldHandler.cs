@@ -10,11 +10,25 @@ public class WorldHandler : MonoBehaviour
 
     //! ==================== Hidden Datas ====================
     public enum WorldIndex { GameSelect, Wood }
+    public static WorldHandler Instance;
 
     //! ==================== Functions =======================
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            //매니저는 삭제되지 않게
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         _currentWorld = WorldIndex.GameSelect;
+        SetWorld(_currentWorld);
     }
 
     //실제 버튼에 할당하는 함수
