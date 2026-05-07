@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 1182522254711673171}
   - component: {fileID: 6836821703927655107}
   m_Layer: 5
-  m_Name: ReFit_G01_Wood
+  m_Name: ReFit_G02_Wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

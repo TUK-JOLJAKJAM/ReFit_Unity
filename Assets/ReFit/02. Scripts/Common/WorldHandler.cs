@@ -4,12 +4,14 @@ public class WorldHandler : MonoBehaviour
 {
     //! ==================== Inspector UI ====================
     [SerializeField] public GameObject[] worldObjects; //각 월드에 해당하는 오브젝트들을 담는 배열 - GameSelect, Wood 등
+    public bool TestMode = false;
+    public WorldIndex TestWorld = WorldIndex.GameSelect;
 
     [Header("*** Read Only ***")]
     [SerializeField] public WorldIndex _currentWorld;
 
     //! ==================== Hidden Datas ====================
-    public enum WorldIndex { GameSelect, Wood }
+    public enum WorldIndex { GameSelect, Wood, CastleGuard }
     public static WorldHandler Instance;
 
     //! ==================== Functions =======================
@@ -29,6 +31,10 @@ public class WorldHandler : MonoBehaviour
 
         _currentWorld = WorldIndex.GameSelect;
         SetWorld(_currentWorld);
+        if (TestMode)
+        {
+            ChangeWorld(TestWorld);
+        }
     }
 
     //실제 버튼에 할당하는 함수
