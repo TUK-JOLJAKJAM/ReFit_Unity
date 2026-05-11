@@ -6,6 +6,7 @@ public class CastleGuard_Reload : MonoBehaviour
     double currentTime = 0.0f;
     bool isReloading = false;
     public ReFit_G03_CastleGuard mainGameUI;
+    public CastleGuard_AmmoManager ammoManager;
 
     private void Update()
     {
@@ -16,6 +17,7 @@ public class CastleGuard_Reload : MonoBehaviour
             {
                 Debug.Log("Reloaded!");
                 mainGameUI.ReLoad();
+                ammoManager.ReLoad();
                 isReloading = false;
                 currentTime = 0.0f;
             }

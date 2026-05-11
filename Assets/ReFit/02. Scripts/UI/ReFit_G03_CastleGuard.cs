@@ -26,7 +26,7 @@ public class ReFit_G03_CastleGuard : MonoBehaviour
 
     public void UseAmmo()
     {
-        for(int i = AmmoUI.childCount - 1; i > 0; i--)
+        for(int i = AmmoUI.childCount - 1; i >= 0; i--)
         {
             if(AmmoUI.GetChild(i).gameObject.activeSelf)
             {

@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ReFit/01. Scenes/Village.unity
     guid: d1004d90a8cb5b2429511939815dc780
-  - enabled: 1
+  - enabled: 0
     path: Assets/ReFit/01. Scenes/wood.unity
     guid: 3e02f01cc15946945b418862b7bb51f9
   m_configObjects:
