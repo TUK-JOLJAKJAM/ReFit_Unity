@@ -107,4 +107,19 @@ public class GyroManager : MonoBehaviour
     {
         return receivedRotation;
     }
+
+    //-1~1 사이의 값으로 정규화된 자이로 데이터를 반환하는 함수들
+    //0~90 : 0 ~ 1, 360~270 : 0 ~ -1
+    public float GetNormalizedGyroX()
+    {
+        return Mathf.Sin(receivedRotation.eulerAngles.x * Mathf.Deg2Rad);
+    }
+    public float GetNormalizedGyroY()
+    {
+        return Mathf.Sin(receivedRotation.eulerAngles.y * Mathf.Deg2Rad);
+    }
+    public float GetNormalizedGyroZ()
+    {
+        return Mathf.Sin(receivedRotation.eulerAngles.z * Mathf.Deg2Rad);
+    }
 }

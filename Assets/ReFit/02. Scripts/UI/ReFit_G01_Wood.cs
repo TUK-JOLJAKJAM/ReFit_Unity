@@ -18,7 +18,7 @@ public class ReFit_G01_Wood : MonoBehaviour
             Manager = UIManager.Instance;
         }
 
-        PointManager = GameObject.FindWithTag("PointManager").GetComponent<PointManager_Wood>();
+        //PointManager = GameObject.FindWithTag("PointManager").GetComponent<PointManager_Wood>();
     }
 
     public void SetSlider(float time)

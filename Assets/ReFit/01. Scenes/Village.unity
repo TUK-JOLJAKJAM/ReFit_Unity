@@ -8849,6 +8849,7 @@ MonoBehaviour:
   AimUI: {fileID: 1701337928}
   speed: 5
   Canvas: {fileID: 1464718507}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1001 &553118882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12457,7 +12458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &786059923
 Transform:
   m_ObjectHideFlags: 0
@@ -15438,6 +15439,28 @@ PrefabInstance:
       propertyPath: Games.Array.data[0].Body
       value: "\uC591\uCABD \uC5B4\uAE68"
       objectReference: {fileID: 0}
+    - target: {fileID: 7153213481533793068, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
+      propertyPath: Games.Array.data[1].Body
+      value: "\uD5C8\uB9AC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153213481533793068, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
+      propertyPath: Games.Array.data[1].Name
+      value: "\uC131\uBCBD\uC9C0\uD0A4\uAE30"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153213481533793068, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
+      propertyPath: Games.Array.data[1].GameIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153213481533793068, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
+      propertyPath: Games.Array.data[0].Description
+      value: "\uD314\uC744 \uB4E4\uC5B4\uC11C \uB3C4\uB07C \uC900\uBE44, \uB0B4\uB9AC
+        \uCCD0\uC11C \uC7A5\uC791 \uD328\uAE30!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153213481533793068, guid: fa3c32d4385e8024d94983c66213b084, type: 3}
+      propertyPath: Games.Array.data[1].Description
+      value: "\uC88C\uC6B0\uC5D0\uC11C \uCD1D\uC54C \uC7A5\uC804, \uC801\uC744 \uD5A5\uD574
+        \uBC1C\uC0AC!"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17655,7 +17678,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 383414473196771894, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 547791211086104072, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
       propertyPath: m_Name
@@ -24297,7 +24320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1507081801
 Transform:
   m_ObjectHideFlags: 0
@@ -26298,7 +26321,7 @@ MonoBehaviour:
   - {fileID: 177054242}
   - {fileID: 786059922}
   - {fileID: 1507081800}
-  TestMode: 1
+  TestMode: 0
   TestWorld: 2
   _currentWorld: 0
 --- !u!1001 &1610936860

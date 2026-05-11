@@ -29,6 +29,6 @@ public class CastleGuard_PlayerMove : MonoBehaviour
         //
 
         transform.position = myposition + new Vector3(Mathf.Sin(gyroOffset.eulerAngles.x * Mathf.Deg2Rad) * speed, 0, 0);
-        AimUI.localPosition = new Vector3(Mathf.Sin(gyroOffset.eulerAngles.x * Mathf.Deg2Rad) * Canvas.sizeDelta.x * 0.5f, 0, 0);
+        AimUI.localPosition = new Vector3(Mathf.Sin(gyroOffset.eulerAngles.x * Mathf.Deg2Rad) * Canvas.sizeDelta.x * 0.5f, Mathf.Sin(gyroOffset.eulerAngles.y * Mathf.Deg2Rad) * Canvas.sizeDelta.y * 0.5f, 0);
     }
 }
