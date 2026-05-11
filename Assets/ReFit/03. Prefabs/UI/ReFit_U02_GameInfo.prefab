@@ -122,9 +122,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4714165380414743811}
-        m_TargetAssemblyTypeName: ReFit_U03_GameInfo, Assembly-CSharp
+        m_TargetAssemblyTypeName: ReFit_U02_GameInfo, Assembly-CSharp
         m_MethodName: ButtonDown_GameStart
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -187,6 +187,7 @@ MonoBehaviour:
   _gameTitleText: {fileID: 4329803437505937154}
   _gameDescText: {fileID: 7675933563923686244}
   _gameBodyText: {fileID: 5171639732168852998}
+  _gameIndex: 0
 --- !u!1 &1136565375640069474
 GameObject:
   m_ObjectHideFlags: 0

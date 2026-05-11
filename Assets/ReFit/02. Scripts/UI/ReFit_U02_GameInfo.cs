@@ -9,7 +9,9 @@ public class ReFit_U02_GameInfo : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _gameTitleText;
     [SerializeField] private TextMeshProUGUI _gameDescText;
-    [SerializeField] private TextMeshProUGUI _gameBodyText;         
+    [SerializeField] private TextMeshProUGUI _gameBodyText;
+    [SerializeField] private ReFit_G00_GameSelect.GameIndex _gameIndex;
+
 
     void Start()
     {
@@ -25,6 +27,7 @@ public class ReFit_U02_GameInfo : MonoBehaviour
         _gameTitleText.text = gameInfo.Name;
         _gameDescText.text = gameInfo.Description;
         _gameBodyText.text = gameInfo.Body;
+        _gameIndex = gameInfo.GameIndex;
     }
 
     public void ButtonDown_Back()
@@ -33,10 +36,10 @@ public class ReFit_U02_GameInfo : MonoBehaviour
         UIManager.ExitMenu(gameObject);
     }
 
-    public void ButtonDown_GameStart(int gameIndex)
+    public void ButtonDown_GameStart()
     {
-        Debug.Log(gameIndex);
-        WorldHandler.ChangeWorldInt(gameIndex + 1);
+        Debug.Log(_gameIndex);
+        WorldHandler.ChangeWorldInt((int)_gameIndex + 1);
         UIManager.ExitMenu(gameObject);
     }
 }

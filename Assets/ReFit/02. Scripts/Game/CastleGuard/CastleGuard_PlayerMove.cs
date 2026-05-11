@@ -11,6 +11,8 @@ public class CastleGuard_PlayerMove : MonoBehaviour
     Vector3 myposition;
     public RectTransform Canvas;
 
+    [SerializeField] Vector3 offset;
+
     private void Start()
     {
         gyroManager = GyroManager.Instance;
@@ -20,7 +22,13 @@ public class CastleGuard_PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = myposition + new Vector3(Mathf.Sin(gyroManager.GetGyro().eulerAngles.x * Mathf.Deg2Rad) * speed, 0, 0);
-        AimUI.localPosition = new Vector3(Mathf.Sin(gyroManager.GetGyro().eulerAngles.x * Mathf.Deg2Rad) * Canvas.sizeDelta.x * 0.5f, 0, 0);
+        Quaternion gyroOffset = gyroManager.GetGyro();
+
+        //debug
+        offset = new Vector3(gyroOffset.eulerAngles.x, gyroOffset.eulerAngles.y, gyroOffset.eulerAngles.z);
+        //
+
+        transform.position = myposition + new Vector3(Mathf.Sin(gyroOffset.eulerAngles.x * Mathf.Deg2Rad) * speed, 0, 0);
+        AimUI.localPosition = new Vector3(Mathf.Sin(gyroOffset.eulerAngles.x * Mathf.Deg2Rad) * Canvas.sizeDelta.x * 0.5f, 0, 0);
     }
 }
