@@ -11,11 +11,8 @@ public class GameManager_Wood : MonoBehaviour
 
     [Header("----- 오브젝트 -----")]
     [Header("매니저들")]
-    [SerializeField] public DeviceManager_Wood DeviceManager;
     [SerializeField] public PointManager_Wood PointManager;
     [SerializeField] public WoodPoint WoodPoint;
-    [Header("매")]
-    //WoodPoint는 PointManager로 기능 이관 해야하고, DeviceManager는 Cube에서 동작하는거 DeviceManager로 옮겨야함
 
     [Space(30)]
 
@@ -45,12 +42,10 @@ public class GameManager_Wood : MonoBehaviour
                 break;
             case GameState.Playing:
                 Debug.Log("게임 플레이 상태");
-                if (_currentCoroutine == null) _currentCoroutine = StartCoroutine(DeviceManager.RotationAxe());
+                //if (_currentCoroutine == null) _currentCoroutine = StartCoroutine(DeviceManager.RotationAxe());
                 if (PointManager.GetPoint() == 5)
                 {
                     _currentState = GameState.GameOver;
-                    StopCoroutine(_currentCoroutine);
-                    _currentCoroutine = null;
                 }
                 break;
             case GameState.GameOver:
