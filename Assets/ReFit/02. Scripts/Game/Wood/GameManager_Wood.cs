@@ -21,7 +21,7 @@ public class GameManager_Wood : MonoBehaviour
 
     //! ==================== Hidden Datas ====================
     enum GameState
-    { Start, Playing, GameOver }
+    { Start, Playing, GameOver, End }
 
     Coroutine _currentCoroutine;
 
@@ -41,7 +41,6 @@ public class GameManager_Wood : MonoBehaviour
                 if(_currentCoroutine == null)_currentCoroutine = StartCoroutine(StartState());
                 break;
             case GameState.Playing:
-                Debug.Log("게임 플레이 상태");
                 //if (_currentCoroutine == null) _currentCoroutine = StartCoroutine(DeviceManager.RotationAxe());
                 if (PointManager.GetPoint() == 5)
                 {
@@ -50,10 +49,13 @@ public class GameManager_Wood : MonoBehaviour
                 break;
             case GameState.GameOver:
                 Debug.Log("게임 오버 상태");
-                _currentState = GameState.Start;
+                _currentState = GameState.End;
 
                 WoodPoint.SaveData();
                 UIManager.Instance.ButtonDown_MenuSelect(UIManager.MenuState.GameResult);
+                break;
+            case GameState.End:
+                //게임오버 후 아무 동작 안하는 상태
                 break;
         }
     }

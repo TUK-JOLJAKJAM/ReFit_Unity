@@ -18,16 +18,16 @@ public class UIManager : MonoBehaviour
     [Header("---StartScene---")]
     [SerializeField] private MenuState _startSceneState = MenuState.Start;
 
-    [Header("---Effects---")]
-    [SerializeField] Animation _gameStartEffect = null;
+    
 
     [Space(20)]
     [Header("***Read Only***")]
     [SerializeField] MenuState _currentState = MenuState.None;
     [SerializeField] GameObject _currentUI = null;
+    [SerializeField] Animation _gameStartEffect = null;
 
     // ============== Hidden Data ==================
-    public enum MenuState { Start, Options, GameInfo, GameResult, None }
+    public enum MenuState { Start, Options, GameInfo, GameResult, GameStartAnimation, None }
     public static UIManager Instance;
 
     // =============== Functions ==================
@@ -139,12 +139,16 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator SetGameStartEffect()
     {
+        ChangeMenu(MenuState.GameStartAnimation);
+
         //게임 시작 효과를 설정하는 로직을 여기에 추가
         //예: 화면 전환, 애니메이션 재생 등
         Debug.Log("게임 시작 효과 설정");
         yield return null;
-        
-        if(_gameStartEffect == null)
+
+        _gameStartEffect = _currentUI.GetComponent<Animation>();
+
+        if (_gameStartEffect == null)
         {
             Debug.LogWarning("게임 시작 효과가 할당되지 않았습니다.");
             yield break;
@@ -152,13 +156,20 @@ public class UIManager : MonoBehaviour
 
         if (_gameStartEffect != null && _gameStartEffect.isPlaying != true)
         {
+            Debug.Log("이펙트 재생 시작");
             _gameStartEffect.Play();
+            yield return null;
+            float duration = _gameStartEffect.clip.length;
+            yield return new WaitForSeconds(duration);
         }
 
-        while (_gameStartEffect.isPlaying)
+        /*while (_gameStartEffect.isPlaying)
         {
             yield return null;
-        }
+        }*/
+
+        Debug.Log("이펙트 종료");
+        ExitMenu(_currentUI);
 
         yield return null;
     }

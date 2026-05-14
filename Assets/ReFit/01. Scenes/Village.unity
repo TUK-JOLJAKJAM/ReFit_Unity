@@ -746,6 +746,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4835789832631930, guid: bdf8e7438a7816543998181bd3067573, type: 3}
   m_PrefabInstance: {fileID: 31134984}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &32287259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 32287260}
+  - component: {fileID: 32287261}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &32287260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32287259}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1316391713}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &32287261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32287259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116015ea79ed7214898df4b4cc367915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager_Wood
+  GameCanvas: {fileID: 1009488199}
+  PointManager: {fileID: 1872971222}
+  WoodPoint: {fileID: 1872971223}
+  _currentState: 0
 --- !u!1001 &32415771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2768,7 +2816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &177054243
 Transform:
   m_ObjectHideFlags: 0
@@ -13006,6 +13054,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7933974162475648831, guid: a0e0d0d39aadf2a4ebf74d55fc21b558, type: 3}
   m_PrefabInstance: {fileID: 826662496}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &836005945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3002171559938138725, guid: 2e1e5d4ea62c6b942845c18d857370a7, type: 3}
+  m_PrefabInstance: {fileID: 5091091854713756246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311aa7c19887ca44c915a6f7457861b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManager
 --- !u!1001 &840599344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17768,15 +17827,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1768873402543177125, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1872971220}
+    - target: {fileID: 1768873402543177125, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2679562542757297921, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -30.899902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2679562542757297921, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -58.390137
+      objectReference: {fileID: 0}
     - target: {fileID: 2775070418985213197, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6836821703927655107, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
+      propertyPath: Manager
+      value: 
+      objectReference: {fileID: 836005945}
+    - target: {fileID: 6836821703927655107, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
       propertyPath: PointManager
       value: 
       objectReference: {fileID: 1872971222}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8974963839771455786, guid: 75352cb3e6aa9f54b8a1c4194ad3d686, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -21537,6 +21617,7 @@ Transform:
   m_Children:
   - {fileID: 1872971221}
   - {fileID: 57270183}
+  - {fileID: 32287260}
   m_Father: {fileID: 786059923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1317286746
@@ -30084,6 +30165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1872971221}
   - component: {fileID: 1872971222}
+  - component: {fileID: 1872971223}
   m_Layer: 0
   m_Name: PointManager
   m_TagString: Untagged
@@ -30121,6 +30203,24 @@ MonoBehaviour:
   _point: 0
   _isSwinging: 0
   _totalPlayTime: 0
+--- !u!114 &1872971223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872971220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ac2c3f80eb3e644aa4ebdf10abd8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WoodPoint
+  PointManager: {fileID: 1872971222}
+  gameData:
+    body_part: SHOULDER
+    side: BOTH
+    duration_sec: 420
+    score: 0
 --- !u!1001 &1873229970
 PrefabInstance:
   m_ObjectHideFlags: 0
