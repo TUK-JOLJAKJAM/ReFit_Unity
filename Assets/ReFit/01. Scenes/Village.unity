@@ -1289,6 +1289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhoneGyro_Wood
   gyroManager: {fileID: 7891210}
+  gameManager: {fileID: 0}
   targetObject: {fileID: 1002074002}
   defaultRotation: {x: 0, y: 0, z: -15}
   rotationSensitivity: 45
@@ -24566,7 +24567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1507081801
 Transform:
   m_ObjectHideFlags: 0
@@ -33367,6 +33368,10 @@ PrefabInstance:
       propertyPath: _currentState
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3002171559938138725, guid: 2e1e5d4ea62c6b942845c18d857370a7, type: 3}
+      propertyPath: 'menus.Array.data[4]'
+      value: 
+      objectReference: {fileID: 547791211086104072, guid: d32f5cd229a3ba04b864c32408f79495, type: 3}
     - target: {fileID: 3141890629474605166, guid: 2e1e5d4ea62c6b942845c18d857370a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CastleGuard_Shoot : MonoBehaviour
 {
+    public CastleGuard_GameManager gameManager;
     public GameObject bulletPrefab;
     public Transform bulletParent;
     public CastleGuard_AmmoManager ammoManager;
@@ -22,10 +23,13 @@ public class CastleGuard_Shoot : MonoBehaviour
 
     void Shoot()
     {
-        if(ammoManager.ammoCount <= 0) return;
-        Instantiate(bulletPrefab, transform.position + new Vector3(-0.17f, 0, -0.1f), Quaternion.identity, bulletParent);
-        mainGameUI.UseAmmo();
-        ammoManager.UseAmmo();
+        if (gameManager._currentState == CastleGuard_GameManager.GameState.Playing)
+        {
+            if (ammoManager.ammoCount <= 0) return;
+            Instantiate(bulletPrefab, transform.position + new Vector3(-0.17f, 0, -0.1f), Quaternion.identity, bulletParent);
+            mainGameUI.UseAmmo();
+            ammoManager.UseAmmo();
+        }
     }
 
     IEnumerator ShootCoroutine()

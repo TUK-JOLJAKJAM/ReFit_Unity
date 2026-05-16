@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CastleGuard_EnemyFactory : MonoBehaviour
 {
+    public CastleGuard_GameManager GameManager;
     public GameObject EnemyPrefab;
     public Transform EnemyParent;
 
@@ -32,10 +33,13 @@ public class CastleGuard_EnemyFactory : MonoBehaviour
 
     void SpawnEnemy()
     {
-        if (EnemyParent.childCount < _maxEnemyCount)
+        if (GameManager._currentState == CastleGuard_GameManager.GameState.Playing)
         {
-            int spawnIndex = Random.Range(0, _spawnPoints.Length);
-            Instantiate(EnemyPrefab, _spawnPoints[spawnIndex], Quaternion.identity, EnemyParent);
+            if (EnemyParent.childCount < _maxEnemyCount)
+            {
+                int spawnIndex = Random.Range(0, _spawnPoints.Length);
+                Instantiate(EnemyPrefab, _spawnPoints[spawnIndex], Quaternion.identity, EnemyParent);
+            }
         }
     }
 
