@@ -123,6 +123,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2752266846942812301, guid: 01fba43840893414a83863004e3a487b, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3276884064349192759, guid: 01fba43840893414a83863004e3a487b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.54
@@ -202,7 +206,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 8

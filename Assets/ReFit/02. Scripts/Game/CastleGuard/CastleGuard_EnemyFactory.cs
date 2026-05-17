@@ -12,11 +12,11 @@ public class CastleGuard_EnemyFactory : MonoBehaviour
 
     private Vector3[] _spawnPoints = new Vector3[]
     {
-        new Vector3(-13, 4, 5),
-        new Vector3(-13, 2, 5),
-        new Vector3(-13, 0, 5),
-        new Vector3(13, 3, 5),
-        new Vector3(13, 1, 5)
+        new Vector3(-3.25f, 0, 15),
+        new Vector3(-1.75f, 0, 15),
+        new Vector3(-0.25f, 0, 15),
+        new Vector3(1.25f, 0, 15),
+        new Vector3(2.75f, 0, 15)
     };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

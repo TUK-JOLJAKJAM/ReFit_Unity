@@ -7,10 +7,6 @@ public class CastleGuard_EnemyMove : MonoBehaviour
     public float speed = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        SetDirection();
-    }
 
     // Update is called once per frame
     void Update()
@@ -19,33 +15,15 @@ public class CastleGuard_EnemyMove : MonoBehaviour
         DeleteEnemy();
     }
 
-    void SetDirection()
-    {
-        if (transform.position.x > 0)
-        {
-            _direction = false;
-        }
-        else
-        {
-            _direction = true;
-        }
-    }
 
     private void MoveToDirection()
     {
-        if (_direction)
-        {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
-        }
-        else
-        {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
-        }
+        transform.Translate(Vector3.back * speed * Time.deltaTime);
     }
 
     void DeleteEnemy()
     {
-        if(transform.position.x > 15 || transform.position.x < -15)
+        if(transform.position.z < -3.0f)
         {
             Destroy(gameObject);
         }

@@ -6,14 +6,12 @@ public class CastleGuard_GameManager : MonoBehaviour
     [Header("********** Read Only **********")]
     [SerializeField] public GameState _currentState;
 
-    
-
+    [SerializeField] private int point = 0;
+    [SerializeField] private int life = 10;
+    [SerializeField] private float playTime = 0f;
     //! ==================== Hidden Datas ====================
     public enum GameState
     { Start, Playing, GameOver, End }
-
-    private float playTime = 0f;
-    private int point = 0;
 
     Coroutine _currentCoroutine;
 
@@ -43,6 +41,8 @@ public class CastleGuard_GameManager : MonoBehaviour
                     _currentState = GameState.GameOver;
                 }
 
+                Debug.Log($"게임 플레이 중 상태, 포인트 : {point}, 라이프 : {life}, 플레이 시간 : {playTime}");
+
                 break;
 
             case GameState.GameOver:
@@ -69,5 +69,10 @@ public class CastleGuard_GameManager : MonoBehaviour
     public void AddPoint()
     {
         point++;
+    }
+
+    public void DecreaseLife()
+    {
+        life--;
     }
 }
