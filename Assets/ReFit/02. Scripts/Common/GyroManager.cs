@@ -40,7 +40,7 @@ public class GyroManager : MonoBehaviour
             // 9001번 포트로 들어오는 모든 데이터를 수신 대기
             dataReceiver = new UdpClient(DataPort);
             dataReceiver.BeginReceive(OnDataReceived, null);
-            Debug.Log($"[PC] {DataPort}번 포트에서 수신 대기 중... (PC IP: 10.124.192.9)");
+            Debug.Log($"[PC] {DataPort}번 포트에서 수신 대기 중...");
         }
         catch (Exception e)
         {

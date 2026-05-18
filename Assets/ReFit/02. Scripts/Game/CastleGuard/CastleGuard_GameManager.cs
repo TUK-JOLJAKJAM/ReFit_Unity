@@ -5,19 +5,24 @@ public class CastleGuard_GameManager : MonoBehaviour
 {
     [Header("********** Read Only **********")]
     [SerializeField] public GameState _currentState;
+    [SerializeField] public Phase _currentPhase;
 
     [SerializeField] private int point = 0;
     [SerializeField] private int life = 10;
     [SerializeField] private float playTime = 0f;
+
     //! ==================== Hidden Datas ====================
     public enum GameState
     { Start, Playing, GameOver, End }
+    public enum Phase
+    { Phase1, Phase2 }
 
     Coroutine _currentCoroutine;
 
     private void Start()
     {
-        
+        _currentState = GameState.Start;
+        _currentPhase = Phase.Phase1;
     }
 
     private void Update()
@@ -36,13 +41,16 @@ public class CastleGuard_GameManager : MonoBehaviour
 
                 playTime += Time.deltaTime;
 
-                if (point == 20)
+                if (life <= 0)
                 {
                     _currentState = GameState.GameOver;
                 }
 
-                Debug.Log($"게임 플레이 중 상태, 포인트 : {point}, 라이프 : {life}, 플레이 시간 : {playTime}");
-
+                if (point >= 20 && _currentPhase == Phase.Phase1)
+                {
+                    _currentPhase = Phase.Phase2;
+                }
+                
                 break;
 
             case GameState.GameOver:
@@ -74,5 +82,15 @@ public class CastleGuard_GameManager : MonoBehaviour
     public void DecreaseLife()
     {
         life--;
+    }
+
+    //월드핸들러에서 게임 리셋할 때 사용
+    public void ResetGame()
+    {
+        point = 0;
+        life = 10;
+        playTime = 0f;
+        _currentState = GameState.Start;
+        _currentPhase = Phase.Phase1;
     }
 }
