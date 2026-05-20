@@ -23,6 +23,11 @@ public class PointManager_Wood : MonoBehaviour
         _point++;
     }
 
+    public void resetPoint()
+    {
+        _point = 0;
+    }
+
     public int GetTotalTimeSec()
     {
         return Mathf.RoundToInt(Time.time - _totalPlayTime);

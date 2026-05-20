@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d173ab329a38dc4aa1ecf92b2a5a264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CastleGuard_EnemyDelete
+  gameManager: {fileID: 0}
 --- !u!1001 &7263668679902733279
 PrefabInstance:
   m_ObjectHideFlags: 0

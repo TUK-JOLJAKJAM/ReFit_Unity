@@ -19,6 +19,7 @@ public class CastleGuard_EnemyDelete : MonoBehaviour
         {
             gameManager.AddPoint();
             Destroy(gameObject);
+            Destroy(collision.transform.parent.gameObject);
         }
     }
 }

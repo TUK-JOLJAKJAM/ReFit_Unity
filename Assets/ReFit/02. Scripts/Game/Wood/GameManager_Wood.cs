@@ -56,6 +56,7 @@ public class GameManager_Wood : MonoBehaviour
                 break;
             case GameState.End:
                 //게임오버 후 아무 동작 안하는 상태
+                ResetGame();
                 break;
         }
     }
@@ -71,5 +72,13 @@ public class GameManager_Wood : MonoBehaviour
 
         _currentState = GameState.Playing;
         _currentCoroutine = null;
+    }
+
+    void ResetGame()
+    {
+        //_currentState = GameState.Start;
+        PointManager.SetSwinging(false);
+        PointManager.SetValidSwing(false);
+        PointManager.resetPoint();
     }
 }

@@ -21,6 +21,7 @@ public class ReFit_U03_GameResult : MonoBehaviour
 
     public void ButtonDown_MainMenu()
     {
-        Manager.ReturnToMainMenu();
+        WorldHandler.Instance.ChangeWorldInt(0);
+        Destroy(gameObject);
     }
 }

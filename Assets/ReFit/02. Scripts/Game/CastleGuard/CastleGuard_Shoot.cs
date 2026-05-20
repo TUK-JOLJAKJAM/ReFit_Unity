@@ -37,7 +37,7 @@ public class CastleGuard_Shoot : MonoBehaviour
         while (true)
         {
             Shoot();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
         }
     }
 }

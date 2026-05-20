@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 public class ReFit_G03_CastleGuard : MonoBehaviour
 {
     //! ==================== Inspector UI =====================
     [SerializeField] public RectTransform AmmoUI = null;
+    [SerializeField] private TextMeshProUGUI pointText = null;
+    [SerializeField] private TextMeshProUGUI lifeText = null;
 
     //! ==================== Hidden Datas ====================
     WorldHandler worldHandler;
@@ -14,6 +17,24 @@ public class ReFit_G03_CastleGuard : MonoBehaviour
     {
         worldHandler = WorldHandler.Instance;
         uiManager = UIManager.Instance;
+    }
+
+    /// <summary>
+    /// 포인트 UI 텍스트를 갱신합니다.
+    /// </summary>
+    public void UpdatePoint(int point)
+    {
+        if (pointText != null)
+            pointText.text = $"Point : {point}";
+    }
+
+    /// <summary>
+    /// 라이프 UI 텍스트를 갱신합니다.
+    /// </summary>
+    public void UpdateLife(int life)
+    {
+        if (lifeText != null)
+            lifeText.text = $"Life : {life}";
     }
 
     public void ReLoad()

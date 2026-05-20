@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class CastleGuard_GameManager : MonoBehaviour
 {
+    public Transform[] lifeTriggers;
+    public ReFit_G03_CastleGuard mainGameUI;
+
     [Header("********** Read Only **********")]
     [SerializeField] public GameState _currentState;
     [SerializeField] public Phase _currentPhase;
 
     [SerializeField] private int point = 0;
-    [SerializeField] private int life = 10;
+    [SerializeField] private int life = 5;
     [SerializeField] private float playTime = 0f;
 
     //! ==================== Hidden Datas ====================
@@ -21,8 +24,7 @@ public class CastleGuard_GameManager : MonoBehaviour
 
     private void Start()
     {
-        _currentState = GameState.Start;
-        _currentPhase = Phase.Phase1;
+        ResetGame();
     }
 
     private void Update()
@@ -31,7 +33,7 @@ public class CastleGuard_GameManager : MonoBehaviour
          switch (_currentState)
         {
             case GameState.Start:
-                Debug.Log("°ÔÀÓ ½ÃÀÛ »óÅÂ");
+                Debug.Log("ì‹œì‘ë‹¨ê³„");
 
                 if(_currentCoroutine == null)_currentCoroutine = StartCoroutine(StartState());
 
@@ -41,27 +43,31 @@ public class CastleGuard_GameManager : MonoBehaviour
 
                 playTime += Time.deltaTime;
 
+
                 if (life <= 0)
                 {
                     _currentState = GameState.GameOver;
                 }
 
-                if (point >= 20 && _currentPhase == Phase.Phase1)
+                if (point >= 5 && _currentPhase == Phase.Phase1)
                 {
+                    Debug.Log("5ì íšë“! Phase 2ì§„ì…");
                     _currentPhase = Phase.Phase2;
+                    ChangePhase();
                 }
                 
                 break;
 
             case GameState.GameOver:
-                Debug.Log("°ÔÀÓ ¿À¹ö »óÅÂ");
+                Debug.Log("ê²Œì„ì¢…ë£Œ");
                 _currentState = GameState.End;
 
                 UIManager.Instance.ButtonDown_MenuSelect(UIManager.MenuState.GameResult);
                 break;
 
             case GameState.End:
-                //°ÔÀÓ¿À¹ö ÈÄ ¾Æ¹« µ¿ÀÛ ¾ÈÇÏ´Â »óÅÂ
+                //ê²Œì„ëë‚˜ê³  ì•„ë¬´ê²ƒë„ ì—†ëŠ”ê³³
+                ResetGame();
                 break;
         }
     }
@@ -77,14 +83,17 @@ public class CastleGuard_GameManager : MonoBehaviour
     public void AddPoint()
     {
         point++;
+        mainGameUI?.UpdatePoint(point);
     }
 
     public void DecreaseLife()
     {
+        Debug.Log("ë¼ì´í”„ ê°ì†Œ");
         life--;
+        mainGameUI?.UpdateLife(life);
     }
 
-    //¿ùµåÇÚµé·¯¿¡¼­ °ÔÀÓ ¸®¼ÂÇÒ ¶§ »ç¿ë
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Úµé·¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
     public void ResetGame()
     {
         point = 0;
@@ -92,5 +101,20 @@ public class CastleGuard_GameManager : MonoBehaviour
         playTime = 0f;
         _currentState = GameState.Start;
         _currentPhase = Phase.Phase1;
+
+        mainGameUI?.UpdatePoint(point);
+        mainGameUI?.UpdateLife(life);
+        foreach (Transform child in lifeTriggers)
+        {
+            child.gameObject.SetActive(true);
+        }
+    }
+
+    public void ChangePhase()
+    {
+        foreach (Transform child in lifeTriggers)
+        {
+            child.gameObject.SetActive(false);
+        }
     }
 }

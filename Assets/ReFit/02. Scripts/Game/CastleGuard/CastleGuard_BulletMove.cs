@@ -10,8 +10,9 @@ public class CastleGuard_BulletMove : MonoBehaviour
     void Start()
     {
         gyroManager = GyroManager.Instance;
-        Vector3 aimAngle = new Vector3(-gyroManager.GetNormalizedGyroY() * 45f, gyroManager.GetNormalizedGyroX() * 45f * Mathf.Abs(gyroManager.GetNormalizedGyroX()), 0);
-        moveDirection = GetVectorFromAngle(aimAngle);
+        //Vector3 aimAngle = new Vector3(-gyroManager.GetNormalizedGyroY() * 45f, gyroManager.GetNormalizedGyroX() * 45f * Mathf.Abs(gyroManager.GetNormalizedGyroX()), 0);
+        //moveDirection = GetVectorFromAngle(aimAngle);
+        moveDirection = transform.forward; // 총알이 발사되는 방향으로 이동
         Destroy(gameObject, 3f); // 5초 후에 총알 삭제 (필요에 따라 조정)
     }
 

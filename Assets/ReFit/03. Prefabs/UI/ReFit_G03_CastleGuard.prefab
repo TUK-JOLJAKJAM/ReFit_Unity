@@ -53,6 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReFit_G03_CastleGuard
   AmmoUI: {fileID: 5258439863939413384}
+  pointText: {fileID: 0}
+  lifeText: {fileID: 0}
 --- !u!1 &1174136147398805077
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08877712, g: 0.990566, b: 0.15227531, a: 0.6313726}
+  m_Color: {r: 0.08877712, g: 0.990566, b: 0.15227531, a: 0.105882354}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -998,7 +1000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8302624, b: 0, a: 0.29803923}
+  m_Color: {r: 1, g: 0.8302624, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1195,7 +1197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8302624, b: 0, a: 0.29803923}
+  m_Color: {r: 1, g: 0.8302624, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
