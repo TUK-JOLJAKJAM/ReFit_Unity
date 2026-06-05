@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Z_UIManager : MonoBehaviour
+public class Z_UIManager : MonoBehaviour, IReFitManager
 {
     [SerializeField] public IReFitUI[] UIArray;
     [SerializeField] private Canvas _canvas;
@@ -17,7 +17,7 @@ public class Z_UIManager : MonoBehaviour
 
     //-----------------------------------------------------------------
 
-    public void ResetUIManager()
+    public void ResetReFitManager()
     {
         foreach (var ui in UIArray)
         {
@@ -27,7 +27,7 @@ public class Z_UIManager : MonoBehaviour
         FindCanvas();
     }
 
-    public void UpdateUIManager()
+    public void UpdateReFitManager()
     {
         foreach (var ui in UIArray)
         {

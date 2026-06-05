@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class DataManager : MonoBehaviour, IReFitManager
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    //-----------------------------------------------------------------
+    public void ResetReFitManager()
     {
-        
+        //초기화
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateReFitManager()
     {
-        
+        //업데이트
     }
 }
