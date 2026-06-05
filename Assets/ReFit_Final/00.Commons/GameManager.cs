@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public ProfileManager ProfileManager;
     [SerializeField] public DataManager DataManager;
 
-    GameManager instance;
+    [SerializeField] public GameManager instance;
+
+    //-----------------------------------------------------------------------
 
     private void Awake()
     {
@@ -22,5 +24,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void Update()
+    {
+        
     }
 }
