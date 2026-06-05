@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] public GameObject UIManager;
-    [SerializeField] public GameObject GyroManager;
-    [SerializeField] public GameObject ProfileManager;
-    [SerializeField] public GameObject DataManager;
+    [SerializeField] public Z_UIManager UIManager;
+    [SerializeField] public Z_GyroManager GyroManager;
+    [SerializeField] public ProfileManager ProfileManager;
+    [SerializeField] public DataManager DataManager;
 
     GameManager instance;
 
