@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IReFitUI
 {
-    void Initalize();
+    void Initialize();
     void UpdateUI();
     GameObject GetGameObject();
 }

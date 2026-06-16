@@ -9,22 +9,24 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
 
     public enum UIType
     {
-        MainMenu,
+        TitleMenu,
         Settings,
         UserInfo,
-        Pause
+        Pause,
+        Gyro
     }
 
     //-----------------------------------------------------------------
 
+    //씬이 바뀔 때 하면 된다(캔버스 찾아야 해서)
     public void ResetReFitManager()
     {
+        FindCanvas();
+
         foreach (var ui in UIArray)
         {
-            ui.Initalize();
+            ui.Initialize();
         }
-
-        FindCanvas();
     }
 
     public void UpdateReFitManager()

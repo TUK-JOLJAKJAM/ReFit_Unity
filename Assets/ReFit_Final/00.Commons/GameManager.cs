@@ -6,14 +6,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
 
     [Header("Sub Managers")]
-    [SerializeField] private Z_UIManager UIManager;
-    [SerializeField] private Z_GyroManager GyroManager;
-    [SerializeField] private ProfileManager ProfileManager;
-    [SerializeField] private DataManager DataManager;
+    [SerializeField] public Z_UIManager UIManager;
+    [SerializeField] public Z_GyroManager GyroManager;
+    [SerializeField] public ProfileManager ProfileManager;
+    [SerializeField] public DataManager DataManager;
 
     public enum GameState
     {
         Loading, // 매니저 초기화, 필요한 리소스 로드
+        Title,   // 타이틀 화면, 메뉴 등 (필요 시 추가)
         InGame,  // 게임 플레이 중
         GameOver // 게임 종료, 결과 화면 등
     }
@@ -78,12 +79,20 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f); // 로딩 시뮬레이션 (혹은 실제 비동기 로드)
 
-        ReFItLogger.Info("로딩 완료 -> 인게임으로 전환");
+        ReFItLogger.Info("로딩 완료 -> 타이틀 화면으로 전환");
 
-        ChangeState(GameState.InGame);
+        ChangeState(GameState.Title);
+    }
+    
+    //2. 타이틀 화면 루틴
+    private IEnumerator TitleRoutine()
+    {
+        ReFItLogger.Info("타이틀 화면 진입: 메뉴 대기");
+        UIManager.OpenUI(Z_UIManager.UIType.TitleMenu);// 타이틀 UI 띄우기, 메뉴 선택 대기 내용 추가
+        yield return null;
     }
 
-    // 2. 인게임 상태 루틴
+    // 3. 인게임 상태 루틴
     private IEnumerator InGameRoutine()
     {
         ReFItLogger.Info("인게임 진입: 게임 루프 시작");
@@ -95,7 +104,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 3. 게임 오버 상태 루틴
+    // 4. 게임 오버 상태 루틴
     private IEnumerator GameOverRoutine()
     {
         Debug.Log("게임 오버 진입");
