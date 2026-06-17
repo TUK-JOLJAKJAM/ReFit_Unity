@@ -21,10 +21,22 @@ public class GyroHud : MonoBehaviour, IReFitUI, IReFitGyro
         Center
     }
 
+    //테스트용 오브젝트
+    public GameObject testCircle;
+
     //----------IReFitUI--------------
     public void Initialize()
     {
         gameManager = GameManager.instance;
+        
+        if(gameManager.TestHandler.isTestMode)
+        {
+            testCircle.SetActive(true);
+        }
+        else
+        {
+            testCircle.SetActive(false);
+        }
     }
     public void UpdateUI()
     {
@@ -33,15 +45,12 @@ public class GyroHud : MonoBehaviour, IReFitUI, IReFitGyro
         {
             if (Input.GetMouseButton(0))
             {
-                //클릭중, 마우스의 좌표 출력
-                ReFItLogger.Info($"Mouse Position: {Input.mousePosition}");
-
-                // 마우스의 스크린 좌표를 포인터 부모(Canvas) 기준의 로컬 좌표로 변환
+                // 마우스의 스크린 좌표 * 1/4 을 포인터 부모(Canvas) 기준의 로컬 좌표로 변환
                 RectTransform parentRect = hudPointer.parent as RectTransform;
                 if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, Input.mousePosition, null, out Vector2 localPoint))
                 {
                     // 포인터가 최대 반경(pointerOffsetMax)을 벗어나지 않도록 제한
-                    localPoint = Vector2.ClampMagnitude(localPoint, pointerOffsetMax);
+                    localPoint = Vector2.ClampMagnitude(localPoint * 0.25f, pointerOffsetMax);
 
                     // 자이로와 비슷하게 부드럽게 마우스 위치로 이동
                     hudPointer.anchoredPosition = Vector2.Lerp(hudPointer.anchoredPosition, localPoint, Time.deltaTime * 10.0f);
