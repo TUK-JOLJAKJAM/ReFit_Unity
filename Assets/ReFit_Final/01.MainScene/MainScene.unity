@@ -3479,6 +3479,7 @@ MonoBehaviour:
   ProfileManager: {fileID: 789252326}
   DataManager: {fileID: 616000483}
   TestHandler: {fileID: 1290359984}
+  gyroHud: {fileID: 1680069619}
 --- !u!1001 &291320807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18875,12 +18876,24 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2118472074}
     m_Modifications:
+    - target: {fileID: 1358832828791170572, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334281838285669936, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3494808863374882838, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
       propertyPath: m_Name
       value: GyroHud
       objectReference: {fileID: 0}
     - target: {fileID: 3494808863374882838, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596655410774257642, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5498299084161854563, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
@@ -18962,6 +18975,10 @@ PrefabInstance:
     - target: {fileID: 5498299084161854563, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755834308796744516, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21752,6 +21769,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5498299084161854563, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
   m_PrefabInstance: {fileID: 1470990233}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1680069619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7438005653672175979, guid: 85dedf252c264b945a08c999d4fdf719, type: 3}
+  m_PrefabInstance: {fileID: 1470990233}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329c785133744ea428fb342b3de645cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GyroHud
 --- !u!1001 &1682824731
 PrefabInstance:
   m_ObjectHideFlags: 0

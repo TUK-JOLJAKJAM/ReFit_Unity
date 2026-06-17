@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public DataManager DataManager;
     [SerializeField] public TestHandler TestHandler;
 
+    [Header("Important UI")]
+    [SerializeField] public GyroHud gyroHud;
+
     public enum GameState
     {
         Loading, // 매니저 초기화, 필요한 리소스 로드
@@ -89,6 +92,8 @@ public class GameManager : MonoBehaviour
         ProfileManager.ResetReFitManager();
         DataManager.ResetReFitManager();
 
+        UIManager.CloseAllUI();
+
         UIManager.OpenUI(Z_UIManager.UIType.Loading);
 
         yield return new WaitForSeconds(2f); // 로딩 시뮬레이션 (혹은 실제 비동기 로드)
@@ -103,8 +108,14 @@ public class GameManager : MonoBehaviour
     {
         ReFItLogger.Info("타이틀 화면 진입: 메뉴 대기");
         UIManager.CloseAllUI();
-        UIManager.OpenUI(Z_UIManager.UIType.TitleMenu);
+
+        //필요 UI 열기        
+        var titleMenu = UIManager.OpenUI(Z_UIManager.UIType.TitleMenu);
         UIManager.OpenUI(Z_UIManager.UIType.Gyro);
+
+        //자이로 입력 대상 전달
+        var gyroUI = UIManager.GetGyroUI(titleMenu);
+        SetGyroInput(gyroUI);
 
         yield return null;
     }
@@ -113,6 +124,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator InGameRoutine()
     {
         ReFItLogger.Info("인게임 진입: 게임 루프 시작");
+        UIManager.CloseAllUI();
+
+        //필요 UI 열기
+
+        //자이로 입력 대상 전달
 
         while (_gameState == GameState.InGame)
         {
@@ -127,5 +143,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("게임 오버 진입");
         // 결과창 UI 띄우기, 데이터 송신 내용 추가
         yield return null;
+    }
+
+    // 자이로 센서 입력 대상 전달
+    public void SetGyroInput(IReFitGyro gyroInput)
+    {
+        gyroHud.gyroInput = gyroInput;
     }
 }

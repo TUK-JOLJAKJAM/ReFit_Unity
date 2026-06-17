@@ -49,11 +49,13 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
         }
     }
 
-    public void OpenUI(UIType uiType)
+    public GameObject OpenUI(UIType uiType)
     {
         GameObject targetUI = UIArray[(int)uiType].GetGameObject();
         targetUI.SetActive(true);
         targetUI.transform.SetParent(_canvas.transform, false);
+
+        return targetUI;
     }
 
     public void CloseUI(UIType uiType)
@@ -61,6 +63,17 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
         GameObject targetUI = UIArray[(int)uiType].GetGameObject();
         targetUI.SetActive(false);
         targetUI.transform.SetParent(this.transform, false);
+    }
+
+    public IReFitGyro GetGyroUI(GameObject gyroUI)
+    {
+        IReFitGyro gyroInput = gyroUI.GetComponent<IReFitGyro>();
+        if (gyroInput == null)
+        {
+            ReFItLogger.Error("자이로 UI에 IReFitGyro 컴포넌트가 없습니다.");
+            return null;
+        }
+        return gyroInput;
     }
 
     //상태 변경 이전에 모든 UI를 닫아준다.

@@ -182,7 +182,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HudDirections
   gyroHud: {fileID: 7438005653672175979}
   gyroDirection: 1
+  image: {fileID: 0}
 --- !u!1 &921116680016234148
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +320,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -349,6 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HudDirections
   gyroHud: {fileID: 7438005653672175979}
   gyroDirection: 3
+  image: {fileID: 0}
 --- !u!1 &1683515228346924483
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +533,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -561,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HudDirections
   gyroHud: {fileID: 7438005653672175979}
   gyroDirection: 0
+  image: {fileID: 0}
 --- !u!1 &3494808863374882838
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,10 +614,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GyroHud
   hudPointer: {fileID: 8733228831781732870}
-  hudUp: {fileID: 1871404740671001525}
-  hudDown: {fileID: 294869566278694442}
-  hudLeft: {fileID: 5027488935941912772}
-  hudRight: {fileID: 921116680016234148}
+  hudUp: {fileID: 7344395480292709473}
+  hudDown: {fileID: 2600741742700007402}
+  hudLeft: {fileID: 8728349809922688633}
+  hudRight: {fileID: 1340861598498539297}
   testCircle: {fileID: 1683515228346924483}
 --- !u!1 &5027488935941912772
 GameObject:
@@ -723,7 +726,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -753,6 +756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HudDirections
   gyroHud: {fileID: 7438005653672175979}
   gyroDirection: 2
+  image: {fileID: 0}
 --- !u!1 &6496423829814509268
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +864,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

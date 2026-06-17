@@ -1,14 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
-public class GyroHud : MonoBehaviour, IReFitUI, IReFitGyro
+public class GyroHud : MonoBehaviour, IReFitUI
 {
     GameManager gameManager;
     public RectTransform hudPointer;
-    public GameObject hudUp;
-    public GameObject hudDown;
-    public GameObject hudLeft;
-    public GameObject hudRight;
+    public HudDirections hudUp;
+    public HudDirections hudDown;
+    public HudDirections hudLeft;
+    public HudDirections hudRight;
+
+    public IReFitGyro gyroInput;
 
     float pointerOffsetMax = 40.0f;
 
@@ -37,6 +40,13 @@ public class GyroHud : MonoBehaviour, IReFitUI, IReFitGyro
         {
             testCircle.SetActive(false);
         }
+
+        hudUp.image = hudUp.GetComponent<Image>();
+        hudDown.image = hudDown.GetComponent<Image>();
+        hudLeft.image = hudLeft.GetComponent<Image>();
+        hudRight.image = hudRight.GetComponent<Image>();
+
+        HudReset();
     }
     public void UpdateUI()
     {
@@ -74,23 +84,6 @@ public class GyroHud : MonoBehaviour, IReFitUI, IReFitGyro
     {
         return this.gameObject;
     }
-    //-------------IReFitGyro----------------
-    void GyroInputUp()
-    {
-        hudUp.SetActive(true);
-    }
-    void GyroInputDown()
-    {
-        hudDown.SetActive(true);
-    }
-    void GyroInputLeft()
-    {
-        hudLeft.SetActive(true);
-    }
-    void GyroInputRight()
-    {
-        hudRight.SetActive(true);
-    }
     
     //---------------------------------------------------------------
     //인수로 들어온 enum에 따라 GyroInput 함수를 호출
@@ -99,19 +92,27 @@ public class GyroHud : MonoBehaviour, IReFitUI, IReFitGyro
         switch (gyroDirection)
         {
             case GyroDirection.Up:
-                GyroInputUp();
+                gyroInput.GyroInputUp();
                 break;
             case GyroDirection.Down:
-                GyroInputDown();
+                gyroInput.GyroInputDown();
                 break;
             case GyroDirection.Left:
-                GyroInputLeft();
+                gyroInput.GyroInputLeft();
                 break;
             case GyroDirection.Right:
-                GyroInputRight();
+                gyroInput.GyroInputRight();
                 break;
             case GyroDirection.Center:
                 break;
         }
+    }
+
+    void HudReset()
+    {
+        hudUp.enabled = false;
+        hudDown.enabled = false;
+        hudLeft.enabled = false;
+        hudRight.enabled = false;
     }
 }
