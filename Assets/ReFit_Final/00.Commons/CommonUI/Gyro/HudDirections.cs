@@ -34,7 +34,7 @@ public class HudDirections : MonoBehaviour
             if (image.enabled)
             {
                 inputTime += Time.deltaTime;
-                if (inputTime >= 0.6f)
+                if (inputTime >= gyroHud.inputTriggerTime)
                 {
                     ReFItLogger.Info($"[GyroHud] {gyroDirection} ют╥б");
                     inputTime = 0.0f;

@@ -12,6 +12,7 @@ public class GyroHud : MonoBehaviour, IReFitUI
     public HudDirections hudRight;
 
     public IReFitGyro gyroInput;
+    public float inputTriggerTime = 0.0f;
 
     float pointerOffsetMax = 40.0f;
 

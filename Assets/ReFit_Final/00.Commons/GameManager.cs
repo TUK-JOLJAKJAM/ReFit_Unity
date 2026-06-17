@@ -113,9 +113,11 @@ public class GameManager : MonoBehaviour
         var titleMenu = UIManager.OpenUI(Z_UIManager.UIType.TitleMenu);
         UIManager.OpenUI(Z_UIManager.UIType.Gyro);
 
-        //자이로 입력 대상 전달
+        //자이로 입력 관리
         var gyroUI = UIManager.GetGyroUI(titleMenu);
-        SetGyroInput(gyroUI);
+        SetGyroInput(gyroUI, 2.0f);
+        ReFItLogger.Info("자이로 입력 전달, triggerTime: 2.0f");
+
 
         yield return null;
     }
@@ -146,8 +148,9 @@ public class GameManager : MonoBehaviour
     }
 
     // 자이로 센서 입력 대상 전달
-    public void SetGyroInput(IReFitGyro gyroInput)
+    public void SetGyroInput(IReFitGyro gyroInput, float triggerTime)
     {
         gyroHud.gyroInput = gyroInput;
+        gyroHud.inputTriggerTime = triggerTime;
     }
 }
