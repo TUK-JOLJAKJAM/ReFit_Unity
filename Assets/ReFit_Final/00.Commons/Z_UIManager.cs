@@ -2,13 +2,17 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Z_UIManager : MonoBehaviour, IReFitManager
 {
-    [SerializeField] public IReFitUI[] UIArray;
+    IReFitUI[] UIArray;
     [SerializeField] private Canvas _canvas;
 
+    //UI 열거형의 순서와, 실제 UI매니저의 자식 오브젝트의 순서가 일치해야한다.
+    //또한, 순서는 더 위에 보일 것이 더 아래 자식이도록 할 것.
     public enum UIType
     {
+        Loading,
         TitleMenu,
         Settings,
         UserInfo,
@@ -18,9 +22,17 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
 
     //-----------------------------------------------------------------
 
-    //씬이 바뀔 때 하면 된다(캔버스 찾아야 해서)
     public void ResetReFitManager()
     {
+        InitUIArray();
+
+        if (System.Enum.GetValues(typeof(UIType)).Length != UIArray.Length)
+        {
+            ReFItLogger.Error("UIType 열거형의 개수와 UI매니저의 자식 오브젝트의 개수가 일치하지 않습니다.");
+            ReFItLogger.Error($"UIType 열거형의 개수: {System.Enum.GetValues(typeof(UIType)).Length},  UI매니저의 자식 오브젝트의 개수: {UIArray.Length}");
+            return;
+        }
+
         FindCanvas();
 
         foreach (var ui in UIArray)
@@ -39,15 +51,31 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
 
     public void OpenUI(UIType uiType)
     {
-        UIArray[(int)uiType].GetGameObject().SetActive(true);
+        GameObject targetUI = UIArray[(int)uiType].GetGameObject();
+        targetUI.SetActive(true);
+        targetUI.transform.SetParent(_canvas.transform, false);
     }
 
     public void CloseUI(UIType uiType)
     {
-        UIArray[(int)uiType].GetGameObject().SetActive(false);
+        GameObject targetUI = UIArray[(int)uiType].GetGameObject();
+        targetUI.SetActive(false);
+        targetUI.transform.SetParent(this.transform, false);
     }
 
-    private void FindCanvas()
+    //상태 변경 이전에 모든 UI를 닫아준다.
+    //씬 변경 시에도 UI매니저의 밑으로 모든 UI가 들어가도록 해준다. -> 그래야 사라지지 않는다.
+    public void CloseAllUI()
+    {
+        foreach (var ui in UIArray)
+        {
+            ui.GetGameObject().SetActive(false);
+            ui.GetGameObject().transform.SetParent(this.transform, false);
+        }
+    }
+
+    //씬이 바뀔 때 캔버스를 새로 찾아줘야한다.
+    public void FindCanvas()
     {
         //캔버스 찾기
         if (_canvas == null)
@@ -56,11 +84,22 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
             if (_canvas == null) ReFItLogger.Error("캔버스 태그가 없습니다. 혹은 캔버스가 존재하지 않습니다.");
         }
 
-        //UI 오브젝트들을 캔버스의 자식으로 설정하고 비활성화
+        //UI 오브젝트들을 비활성화
         for (int i = 0; i < UIArray.Length; i++)
         {
-            UIArray[i].GetGameObject().transform.SetParent(_canvas.transform, false);
             UIArray[i].GetGameObject().SetActive(false);
+        }
+    }
+
+    void InitUIArray()
+    {
+        //UI매니저가 자식으로 가지고 있는 IReFitUI 컴포넌트들을 배열에 넣는다.
+        UIArray = GetComponentsInChildren<IReFitUI>(true);
+
+        //모두 false상태로 만든다.
+        foreach (var ui in UIArray)
+        {
+            ui.GetGameObject().SetActive(false);
         }
     }
 }

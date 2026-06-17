@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Z_GyroManager GyroManager;
     [SerializeField] public ProfileManager ProfileManager;
     [SerializeField] public DataManager DataManager;
+    [SerializeField] public TestHandler TestHandler;
 
     public enum GameState
     {
@@ -44,6 +45,14 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.Loading);
     }
 
+    private void Update()
+    {
+        UIManager.UpdateReFitManager();
+        GyroManager.UpdateReFitManager();
+        ProfileManager.UpdateReFitManager();
+        DataManager.UpdateReFitManager();
+    }
+
     public void ChangeState(GameState newState)
     {
         _gameState = newState;
@@ -57,6 +66,9 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Loading:
                 _stateCoroutine = StartCoroutine(LoadingRoutine());
+                break;
+            case GameState.Title:
+                _stateCoroutine = StartCoroutine(TitleRoutine());
                 break;
             case GameState.InGame:
                 _stateCoroutine = StartCoroutine(InGameRoutine());
@@ -77,6 +89,8 @@ public class GameManager : MonoBehaviour
         ProfileManager.ResetReFitManager();
         DataManager.ResetReFitManager();
 
+        UIManager.OpenUI(Z_UIManager.UIType.Loading);
+
         yield return new WaitForSeconds(2f); // 로딩 시뮬레이션 (혹은 실제 비동기 로드)
 
         ReFItLogger.Info("로딩 완료 -> 타이틀 화면으로 전환");
@@ -88,7 +102,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator TitleRoutine()
     {
         ReFItLogger.Info("타이틀 화면 진입: 메뉴 대기");
-        UIManager.OpenUI(Z_UIManager.UIType.TitleMenu);// 타이틀 UI 띄우기, 메뉴 선택 대기 내용 추가
+        UIManager.CloseAllUI();
+        UIManager.OpenUI(Z_UIManager.UIType.TitleMenu);
+        UIManager.OpenUI(Z_UIManager.UIType.Gyro);
+
         yield return null;
     }
 
