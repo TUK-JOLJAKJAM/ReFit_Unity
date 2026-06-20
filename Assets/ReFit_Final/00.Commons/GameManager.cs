@@ -116,7 +116,6 @@ public class GameManager : MonoBehaviour
         //자이로 입력 관리
         var gyroUI = UIManager.GetGyroUI(titleMenu);
         SetGyroInput(gyroUI, 2.0f);
-        ReFItLogger.Info("자이로 입력 전달, triggerTime: 2.0f");
 
 
         yield return null;
