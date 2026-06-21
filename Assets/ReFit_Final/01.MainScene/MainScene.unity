@@ -3479,7 +3479,7 @@ MonoBehaviour:
   ProfileManager: {fileID: 789252326}
   DataManager: {fileID: 616000483}
   TestHandler: {fileID: 1290359984}
-  gyroHud: {fileID: 1680069619}
+  GyroHud: {fileID: 1680069619}
 --- !u!1001 &291320807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4932,6 +4932,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &368790497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368790493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f631e2d1aa64344e887ab8f54205927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainScene_Player
 --- !u!1001 &370995375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8791,9 +8803,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 667500966}
+  - component: {fileID: 667500967}
   m_Layer: 0
   m_Name: GameLogic
-  m_TagString: Untagged
+  m_TagString: GameLogic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8813,6 +8826,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1326888745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &667500967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667500965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597569fca753c874e9690cbb22ff45b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainScene_Logic
+  Player: {fileID: 368790497}
 --- !u!1001 &673298064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26814,6 +26840,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5162299812387663003, guid: ce2d46d182af8b8458e1edb86301ebba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 368790495}
+    - targetCorrespondingSourceObject: {fileID: 5162299812387663003, guid: ce2d46d182af8b8458e1edb86301ebba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 368790497}
   m_SourcePrefab: {fileID: 100100000, guid: ce2d46d182af8b8458e1edb86301ebba, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

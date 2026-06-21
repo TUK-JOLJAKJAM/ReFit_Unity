@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Enemy
   - Canvas
+  - GameLogic
   layers:
   - Default
   - TransparentFX

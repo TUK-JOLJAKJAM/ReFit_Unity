@@ -13,7 +13,6 @@ public class TitleMenu : MonoBehaviour, IReFitUI, IReFitGyro
 
     public void UpdateUI()
     {
-
     }
 
     public GameObject GetGameObject()

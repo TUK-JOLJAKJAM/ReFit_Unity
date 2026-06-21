@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TestHandler TestHandler;
 
     [Header("Important UI")]
-    [SerializeField] public GyroHud gyroHud;
+    [SerializeField] public GyroHud GyroHud;
+
+    [Header("Game Logic")]
+    [SerializeField] public IReFitGyro GameLogic;
 
     public enum GameState
     {
@@ -126,10 +129,13 @@ public class GameManager : MonoBehaviour
     {
         ReFItLogger.Info("인게임 진입: 게임 루프 시작");
         UIManager.CloseAllUI();
+        FindGameLogic();
 
         //필요 UI 열기
+        UIManager.OpenUI(Z_UIManager.UIType.Gyro);
 
         //자이로 입력 대상 전달
+        SetGyroInput(GameLogic, 1.0f);
 
         while (_gameState == GameState.InGame)
         {
@@ -149,7 +155,18 @@ public class GameManager : MonoBehaviour
     // 자이로 센서 입력 대상 전달
     public void SetGyroInput(IReFitGyro gyroInput, float triggerTime)
     {
-        gyroHud.gyroInput = gyroInput;
-        gyroHud.inputTriggerTime = triggerTime;
+        GyroHud.gyroInput = gyroInput;
+        GyroHud.inputTriggerTime = triggerTime;
+    }
+
+    //게임 로직 찾기(씬 변환 시 호출)
+    public void FindGameLogic()
+    {
+        //씬이 변환될 때마다 게임 로직을 찾아서 연결하는 작업을 수행
+        GameLogic = GameObject.FindWithTag("GameLogic").GetComponent<IReFitGyro>();
+        if (GameLogic == null)
+        {
+            ReFItLogger.Error("씬에서 GameLogic을 찾을 수 없습니다. GameLogic 오브젝트에 IReFitGyro 컴포넌트가 있는지 확인하세요.");
+        }
     }
 }
