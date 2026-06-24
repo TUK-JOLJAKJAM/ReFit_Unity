@@ -186,6 +186,8 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(GameScene gameScene)
     {
+        UIManager.CloseAllUI();
+
         switch (gameScene)
         {
             case GameScene.TitleScene:
@@ -205,8 +207,6 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(3);
                 break;
         }
-
-        UIManager.CloseAllUI();
     }
     void OnEnable()
     {
@@ -221,6 +221,10 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (isFirstLoad) isFirstLoad = false;
-        else UIManager.FindCanvas();
+        else
+        {
+            UIManager.FindCanvas();
+            ChangeState(_gameState);
+        }
     }
 }
