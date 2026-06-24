@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    bool isFirstLoad = true;
     public static GameManager instance { get; private set; }
 
     [Header("Sub Managers")]
@@ -31,6 +33,17 @@ public class GameManager : MonoBehaviour
 
     private Coroutine _stateCoroutine = null;
 
+    public enum GameScene
+    {
+        TitleScene,
+        FightScene,
+        AxeScene,
+        CastleScene
+    }
+
+    private GameScene _currentScene;
+    public GameScene CurrentScene => _currentScene;
+
     private void Awake()
     {
         // 싱글톤
@@ -49,6 +62,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         ChangeState(GameState.Loading);
+        _currentScene = GameScene.TitleScene;
     }
 
     private void Update()
@@ -168,5 +182,45 @@ public class GameManager : MonoBehaviour
         {
             ReFItLogger.Error("씬에서 GameLogic을 찾을 수 없습니다. GameLogic 오브젝트에 IReFitGyro 컴포넌트가 있는지 확인하세요.");
         }
+    }
+
+    public void ChangeScene(GameScene gameScene)
+    {
+        switch (gameScene)
+        {
+            case GameScene.TitleScene:
+                _currentScene = GameScene.TitleScene;
+                SceneManager.LoadScene(0);
+                break;
+            case GameScene.FightScene:
+                _currentScene = GameScene.FightScene;
+                SceneManager.LoadScene(1);
+                break;
+            case GameScene.AxeScene:
+                _currentScene = GameScene.AxeScene;
+                SceneManager.LoadScene(2);
+                break;
+            case GameScene.CastleScene:
+                _currentScene = GameScene.CastleScene;
+                SceneManager.LoadScene(3);
+                break;
+        }
+
+        UIManager.CloseAllUI();
+    }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (isFirstLoad) isFirstLoad = false;
+        else UIManager.FindCanvas();
     }
 }

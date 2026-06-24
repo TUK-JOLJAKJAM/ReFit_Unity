@@ -74,4 +74,20 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
         //플레이어 이동 코루틴
         if (Movable) Player.MoveToPosition(targetPath);
     }
+
+    public void GyroInputUp()
+    {
+        switch (currentMenu)
+        {
+            case MenuState.None:
+                break;
+            case MenuState.Fight:
+                GameManager.instance.ChangeScene(GameManager.GameScene.FightScene);
+                break;
+            case MenuState.Axe:
+                break;
+            case MenuState.Castle:
+                break;
+        }
+    }
 }
