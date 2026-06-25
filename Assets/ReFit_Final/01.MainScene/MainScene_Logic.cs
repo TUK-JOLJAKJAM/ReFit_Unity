@@ -85,6 +85,7 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
                 GameManager.instance.ChangeScene(GameManager.GameScene.FightScene);
                 break;
             case MenuState.Axe:
+                GameManager.instance.ChangeScene(GameManager.GameScene.AxeScene);
                 break;
             case MenuState.Castle:
                 break;

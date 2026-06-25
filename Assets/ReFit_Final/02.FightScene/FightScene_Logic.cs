@@ -212,6 +212,9 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         switch (CurrentSkill)
         {
+            //임시로 공격, 피격, 방어 애니메이션을 각각 Arm, Shoulder, Waist에 연결
+            //변경 시에는 플레이어 스크립트의 함수 호출.(애니메이터도 플레이어스크립트에 연결)
+            //플레이어 스크립트에서 CurrentSkill에 따라 다른 공격 이펙트 출력하게끔
             case Skill.Arm:
                 PlayerAnimator.SetTrigger("Attack");
                 break;
