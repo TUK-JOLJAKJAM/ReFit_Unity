@@ -36,7 +36,7 @@ public class HudDirections : MonoBehaviour
                 inputTime += Time.deltaTime;
                 if (inputTime >= gyroHud.inputTriggerTime)
                 {
-                    ReFItLogger.Info($"[GyroHud] {gyroDirection} 입력");
+                    ReFitLogger.Info($"[GyroHud] {gyroDirection} 입력");
                     inputTime = 0.0f;
                     gyroHud.GyroInputEnter(gyroDirection);
                 }

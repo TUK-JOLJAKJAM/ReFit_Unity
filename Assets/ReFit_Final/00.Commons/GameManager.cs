@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
     // 1. 로딩 상태 루틴
     private IEnumerator LoadingRoutine()
     {
-        ReFItLogger.Info("로딩 및 초기화 시작...");
+        ReFitLogger.Info("로딩 및 초기화 시작...");
 
         UIManager.ResetReFitManager();
         GyroManager.ResetReFitManager();
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f); // 로딩 시뮬레이션 (혹은 실제 비동기 로드)
 
-        ReFItLogger.Info("로딩 완료 -> 타이틀 화면으로 전환");
+        ReFitLogger.Info("로딩 완료 -> 타이틀 화면으로 전환");
 
         ChangeState(GameState.Title);
     }
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
     //2. 타이틀 화면 루틴
     private IEnumerator TitleRoutine()
     {
-        ReFItLogger.Info("타이틀 화면 진입: 메뉴 대기");
+        ReFitLogger.Info("타이틀 화면 진입: 메뉴 대기");
         UIManager.CloseAllUI();
 
         //필요 UI 열기        
@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
     // 3. 인게임 상태 루틴
     private IEnumerator InGameRoutine()
     {
-        ReFItLogger.Info("인게임 진입: 게임 루프 시작");
+        ReFitLogger.Info("인게임 진입: 게임 루프 시작");
         UIManager.CloseAllUI();
         FindGameLogic();
 
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
         GameLogic = GameObject.FindWithTag("GameLogic").GetComponent<IReFitGyro>();
         if (GameLogic == null)
         {
-            ReFItLogger.Error("씬에서 GameLogic을 찾을 수 없습니다. GameLogic 오브젝트에 IReFitGyro 컴포넌트가 있는지 확인하세요.");
+            ReFitLogger.Error("씬에서 GameLogic을 찾을 수 없습니다. GameLogic 오브젝트에 IReFitGyro 컴포넌트가 있는지 확인하세요.");
         }
     }
 

@@ -32,7 +32,7 @@ public class Z_GyroManager : MonoBehaviour, IReFitManager
             // 9001번 포트로 들어오는 모든 데이터를 수신 대기
             dataReceiver = new UdpClient(DataPort);
             dataReceiver.BeginReceive(OnDataReceived, null);
-            ReFItLogger.Info($"[PC] {DataPort}번 포트에서 수신 대기 중...");
+            ReFitLogger.Info($"[PC] {DataPort}번 포트에서 수신 대기 중...");
 
             // 시작할 때 기본 오프셋은 identity(회전 없음)로 초기화
             gyroOffset = Quaternion.identity;
@@ -40,7 +40,7 @@ public class Z_GyroManager : MonoBehaviour, IReFitManager
         }
         catch (Exception e)
         {
-            ReFItLogger.Error($"[PC] 소켓 오픈 실패: {e.Message}");
+            ReFitLogger.Error($"[PC] 소켓 오픈 실패: {e.Message}");
         }
     }
 
@@ -91,7 +91,7 @@ public class Z_GyroManager : MonoBehaviour, IReFitManager
         catch (ObjectDisposedException) { }
         catch (Exception e)
         {
-            ReFItLogger.Error($"[PC] 수신 에러: {e.Message}");
+            ReFitLogger.Error($"[PC] 수신 에러: {e.Message}");
         }
     }
 
@@ -100,7 +100,7 @@ public class Z_GyroManager : MonoBehaviour, IReFitManager
         if (dataReceiver != null)
         {
             dataReceiver.Close();
-            ReFItLogger.Info("[PC] UDP 수신 소켓이 안전하게 닫혔습니다.");
+            ReFitLogger.Info("[PC] UDP 수신 소켓이 안전하게 닫혔습니다.");
         }
     }
 
@@ -128,7 +128,7 @@ public class Z_GyroManager : MonoBehaviour, IReFitManager
         // 오프셋이 변경되었으므로 즉시 현재 프레임의 연산 결과도 업데이트
         offsetAppliedRotation = Quaternion.Inverse(gyroOffset) * localRotation;
 
-        ReFItLogger.Info($"[Gyro] 자이로 영점(Offset)이 재설정되었습니다. 기준 값: {gyroOffset.eulerAngles}");
+        ReFitLogger.Info($"[Gyro] 자이로 영점(Offset)이 재설정되었습니다. 기준 값: {gyroOffset.eulerAngles}");
     }
 
     /// <summary>

@@ -28,8 +28,8 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
 
         if (System.Enum.GetValues(typeof(UIType)).Length != UIArray.Length)
         {
-            ReFItLogger.Error("UIType 열거형의 개수와 UI매니저의 자식 오브젝트의 개수가 일치하지 않습니다.");
-            ReFItLogger.Error($"UIType 열거형의 개수: {System.Enum.GetValues(typeof(UIType)).Length},  UI매니저의 자식 오브젝트의 개수: {UIArray.Length}");
+            ReFitLogger.Error("UIType 열거형의 개수와 UI매니저의 자식 오브젝트의 개수가 일치하지 않습니다.");
+            ReFitLogger.Error($"UIType 열거형의 개수: {System.Enum.GetValues(typeof(UIType)).Length},  UI매니저의 자식 오브젝트의 개수: {UIArray.Length}");
             return;
         }
 
@@ -70,7 +70,7 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
         IReFitGyro gyroInput = gyroUI.GetComponent<IReFitGyro>();
         if (gyroInput == null)
         {
-            ReFItLogger.Error("자이로 UI에 IReFitGyro 컴포넌트가 없습니다.");
+            ReFitLogger.Error("자이로 UI에 IReFitGyro 컴포넌트가 없습니다.");
             return null;
         }
         return gyroInput;
@@ -94,7 +94,7 @@ public class Z_UIManager : MonoBehaviour, IReFitManager
         if (_canvas == null)
         {
             _canvas = GameObject.FindWithTag("Canvas").GetComponent<Canvas>();
-            if (_canvas == null) ReFItLogger.Error("캔버스 태그가 없습니다. 혹은 캔버스가 존재하지 않습니다.");
+            if (_canvas == null) ReFitLogger.Error("캔버스 태그가 없습니다. 혹은 캔버스가 존재하지 않습니다.");
         }
 
         //UI 오브젝트들을 비활성화

@@ -6,6 +6,6 @@ public class TestHandler : MonoBehaviour
 
     private void Start()
     {
-        if(isTestMode)ReFItLogger.Info("테스트 모드입니다.");
+        if(isTestMode)ReFitLogger.Info("테스트 모드입니다.");
     }
 }
