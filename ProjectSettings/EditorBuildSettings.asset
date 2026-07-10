@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ReFit_Final/02.FightScene/FightScene.unity
     guid: 33a2b2feac243a64b80be1368ec40ab1
+  - enabled: 1
+    path: Assets/ReFit_Final/03.AxeScene/AxeScene.unity
+    guid: 8aa75fa8bc3e5ae40abf28b9751678b1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
