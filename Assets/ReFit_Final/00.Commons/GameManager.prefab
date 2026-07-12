@@ -140,6 +140,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27c755f2ab3a184db0fa387d2e46e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProfileManager
+  _currentProfile:
+    userId: 
+    heightCm: 0
+    weightKg: 0
+    dominantHand: 
+    diagnosisTags: []
+    painBaseline0to10: 0
+    notes: 
+    updatedAtMs: 0
 --- !u!1 &6050487922531383640
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,11 +289,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fd05d29c465534f966ad9f8f7d44ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  UIManager: {fileID: 5345286902274030133}
-  GyroManager: {fileID: 8726899066019858164}
-  ProfileManager: {fileID: 8912292868689118807}
-  DataManager: {fileID: 1424753660267566956}
-  TestHandler: {fileID: 6925462851941075201}
+  MyUIManager: {fileID: 5345286902274030133}
+  MyGyroManager: {fileID: 8726899066019858164}
+  MyProfileManager: {fileID: 8912292868689118807}
+  MyDataManager: {fileID: 1424753660267566956}
+  MyTestHandler: {fileID: 6925462851941075201}
   GyroHud: {fileID: 116777998777362767}
 --- !u!1001 &3855468602158916468
 PrefabInstance:

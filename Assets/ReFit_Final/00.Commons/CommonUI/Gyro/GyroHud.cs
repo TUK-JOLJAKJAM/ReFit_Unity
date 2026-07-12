@@ -33,7 +33,7 @@ public class GyroHud : MonoBehaviour, IReFitUI
     {
         gameManager = GameManager.instance;
         
-        if(gameManager.TestHandler.isTestMode)
+        if(gameManager.MyTestHandler.isTestMode)
         {
             testCircle.SetActive(true);
         }
@@ -52,7 +52,7 @@ public class GyroHud : MonoBehaviour, IReFitUI
     public void UpdateUI()
     {
         //테스트모드에서는 클릭하여 포인터 이동하도록 구현, 실제 게임에서는 자이로 센서 값에 따라 포인터 이동
-        if (gameManager.TestHandler.isTestMode)
+        if (gameManager.MyTestHandler.isTestMode)
         {
             if (Input.GetMouseButton(0))
             {
@@ -76,8 +76,8 @@ public class GyroHud : MonoBehaviour, IReFitUI
         else
         {
             hudPointer.anchoredPosition = Vector2.Lerp(hudPointer.anchoredPosition,
-                new Vector2(gameManager.GyroManager.GetNormalizedOffsetGyroX() *
-                pointerOffsetMax, gameManager.GyroManager.GetNormalizedOffsetGyroY() * pointerOffsetMax),
+                new Vector2(gameManager.MyGyroManager.GetNormalizedOffsetGyroX() *
+                pointerOffsetMax, gameManager.MyGyroManager.GetNormalizedOffsetGyroY() * pointerOffsetMax),
                 Time.deltaTime * 5.0f);
         }
     }

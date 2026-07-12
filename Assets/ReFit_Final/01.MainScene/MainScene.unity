@@ -5254,6 +5254,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4202655646031778, guid: 144403e0e442d2a448335e0c845d665b, type: 3}
   m_PrefabInstance: {fileID: 395072450}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &398789730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5345286902274030133, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+  m_PrefabInstance: {fileID: 8222248680470806332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd205fe0ef73db34ab14beb02f349e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Z_UIManager
 --- !u!1001 &403053826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6592,6 +6603,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1034327502380899424, guid: aab66de36575a3c4f91090c4945c1234, type: 3}
   m_PrefabInstance: {fileID: 531495949}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &533390836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8912292868689118807, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+  m_PrefabInstance: {fileID: 8222248680470806332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27c755f2ab3a184db0fa387d2e46e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProfileManager
 --- !u!1001 &541699283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8213,6 +8235,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4063210846265680, guid: 186ecc7a1f977cc4fab5658c00fa3c4d, type: 3}
   m_PrefabInstance: {fileID: 646178511}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &647285339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6925462851941075201, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+  m_PrefabInstance: {fileID: 8222248680470806332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c928e825bce835241829257d18552bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestHandler
 --- !u!1001 &652843448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13024,6 +13057,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6095580087524802362, guid: 6843ae0917d340a40acbc619a1f359e4, type: 3}
   m_PrefabInstance: {fileID: 1051360688}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1053319092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1424753660267566956, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+  m_PrefabInstance: {fileID: 8222248680470806332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc472cc815490544096b1f52a0c4efc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DataManager
 --- !u!1001 &1056188419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22902,6 +22946,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 627700806813803448, guid: 8973d278752e1ac44a8f392b039ad7dd, type: 3}
   m_PrefabInstance: {fileID: 1839968662}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1841497463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8726899066019858164, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+  m_PrefabInstance: {fileID: 8222248680470806332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31795618e07a7b40b1393fbbd1bcb8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Z_GyroManager
 --- !u!1 &1843142594
 GameObject:
   m_ObjectHideFlags: 0
@@ -25961,6 +26016,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5388611273991329768, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+      propertyPath: MyUIManager
+      value: 
+      objectReference: {fileID: 398789730}
+    - target: {fileID: 5388611273991329768, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+      propertyPath: MyDataManager
+      value: 
+      objectReference: {fileID: 1053319092}
+    - target: {fileID: 5388611273991329768, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+      propertyPath: MyGyroManager
+      value: 
+      objectReference: {fileID: 1841497463}
+    - target: {fileID: 5388611273991329768, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+      propertyPath: MyTestHandler
+      value: 
+      objectReference: {fileID: 647285339}
+    - target: {fileID: 5388611273991329768, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
+      propertyPath: MyProfileManager
+      value: 
+      objectReference: {fileID: 533390836}
     - target: {fileID: 7334617499282510930, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
       propertyPath: m_Name
       value: GameManager

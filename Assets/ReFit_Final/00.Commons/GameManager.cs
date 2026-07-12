@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
 
     [Header("Sub Managers")]
-    [SerializeField] public Z_UIManager UIManager;
-    [SerializeField] public Z_GyroManager GyroManager;
-    [SerializeField] public ProfileManager ProfileManager;
-    [SerializeField] public DataManager DataManager;
-    [SerializeField] public TestHandler TestHandler;
+    [SerializeField] public Z_UIManager MyUIManager;
+    [SerializeField] public Z_GyroManager MyGyroManager;
+    [SerializeField] public ProfileManager MyProfileManager;
+    [SerializeField] public DataManager MyDataManager;
+    [SerializeField] public TestHandler MyTestHandler;
 
     [Header("Important UI")]
     [SerializeField] public GyroHud GyroHud;
@@ -67,10 +67,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        UIManager.UpdateReFitManager();
-        GyroManager.UpdateReFitManager();
-        ProfileManager.UpdateReFitManager();
-        DataManager.UpdateReFitManager();
+        MyUIManager.UpdateReFitManager();
+        MyGyroManager.UpdateReFitManager();
+        MyProfileManager.UpdateReFitManager();
+        MyDataManager.UpdateReFitManager();
     }
 
     public void ChangeState(GameState newState)
@@ -104,14 +104,14 @@ public class GameManager : MonoBehaviour
     {
         ReFitLogger.Info("로딩 및 초기화 시작...");
 
-        UIManager.ResetReFitManager();
-        GyroManager.ResetReFitManager();
-        ProfileManager.ResetReFitManager();
-        DataManager.ResetReFitManager();
+        MyUIManager.ResetReFitManager();
+        MyGyroManager.ResetReFitManager();
+        MyProfileManager.ResetReFitManager();
+        MyDataManager.ResetReFitManager();
 
-        UIManager.CloseAllUI();
+        MyUIManager.CloseAllUI();
 
-        UIManager.OpenUI(Z_UIManager.UIType.Loading);
+        MyUIManager.OpenUI(Z_UIManager.UIType.Loading);
 
         yield return new WaitForSeconds(2f); // 로딩 시뮬레이션 (혹은 실제 비동기 로드)
 
@@ -124,16 +124,25 @@ public class GameManager : MonoBehaviour
     private IEnumerator TitleRoutine()
     {
         ReFitLogger.Info("타이틀 화면 진입: 메뉴 대기");
-        UIManager.CloseAllUI();
+        MyUIManager.CloseAllUI();
 
         //필요 UI 열기        
-        var titleMenu = UIManager.OpenUI(Z_UIManager.UIType.TitleMenu);
-        UIManager.OpenUI(Z_UIManager.UIType.Gyro);
+        var titleMenu = MyUIManager.OpenUI(Z_UIManager.UIType.TitleMenu);
+        MyUIManager.OpenUI(Z_UIManager.UIType.Gyro);
 
         //자이로 입력 관리
-        var gyroUI = UIManager.GetGyroUI(titleMenu);
+        var gyroUI = MyUIManager.GetGyroUI(titleMenu);
         SetGyroInput(gyroUI, 2.0f);
 
+        //유저 프로필 가져오기
+        MyProfileManager.Login("testReFit@gmail.com", "testReFit", SystemInfo.deviceUniqueIdentifier, onLoginSuccess: () => {
+            MyProfileManager.CreateTestProfile(onComplete: () => {
+
+                // 2. 생성이 완벽히 끝난 시점에 비로소 프로필 조회를 실행합니다.
+                MyProfileManager.FetchMyProfile();
+
+            });
+        });
 
         yield return null;
     }
@@ -142,11 +151,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator InGameRoutine()
     {
         ReFitLogger.Info("인게임 진입: 게임 루프 시작");
-        UIManager.CloseAllUI();
+        MyUIManager.CloseAllUI();
         FindGameLogic();
 
         //필요 UI 열기
-        UIManager.OpenUI(Z_UIManager.UIType.Gyro);
+        MyUIManager.OpenUI(Z_UIManager.UIType.Gyro);
 
         //자이로 입력 대상 전달
         SetGyroInput(GameLogic, 1.0f);
@@ -186,7 +195,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(GameScene gameScene)
     {
-        UIManager.CloseAllUI();
+        MyUIManager.CloseAllUI();
 
         switch (gameScene)
         {
@@ -223,7 +232,7 @@ public class GameManager : MonoBehaviour
         if (isFirstLoad) isFirstLoad = false;
         else
         {
-            UIManager.FindCanvas();
+            MyUIManager.FindCanvas();
             ChangeState(_gameState);
         }
     }
