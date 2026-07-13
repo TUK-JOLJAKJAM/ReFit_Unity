@@ -7,8 +7,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
     public enum FightState
     {
-        StageSelect,
-        InFight,
+        Attack,
+        Guard,
         Win,
         Lose
     }
@@ -33,10 +33,10 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         switch (GameState)
         {
-            case FightState.StageSelect:
-                break;
-            case FightState.InFight:
+            case FightState.Attack:
                 PlayerAct();
+                break;
+            case FightState.Guard:
                 break;
             case FightState.Win:
                 break;
@@ -48,9 +48,9 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         switch (GameState)
         {
-            case FightState.StageSelect:
+            case FightState.Attack:
                 break;
-            case FightState.InFight:
+            case FightState.Guard:
                 break;
             case FightState.Win:
                 break;
@@ -62,10 +62,10 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         switch (GameState)
         {
-            case FightState.StageSelect:
-                break;
-            case FightState.InFight:
+            case FightState.Attack:
                 ChangeSkillLeft();
+                break;
+            case FightState.Guard:
                 break;
             case FightState.Win:
                 break;
@@ -78,10 +78,10 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         switch (GameState)
         {
-            case FightState.StageSelect:
-                break;
-            case FightState.InFight:
+            case FightState.Attack:
                 ChangeSkillRight();
+                break;
+            case FightState.Guard:
                 break;
             case FightState.Win:
                 break;
@@ -94,8 +94,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     void Awake()
     {
         ResetUI();
-        GameState = FightState.StageSelect;
-        SetFightState(FightState.StageSelect);
+        GameState = FightState.Attack;
+        SetFightState(FightState.Attack);
 
         CurrentSkill = Skill.Shoulder;
         SkillUI.SetSkillUI(CurrentSkill);
@@ -112,11 +112,11 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         switch (GameState)
         {
-            case FightState.StageSelect:
-                _fightCoroutine = StartCoroutine(StageSelectCoroutine());
+            case FightState.Attack:
+                _fightCoroutine = StartCoroutine(AttackCoroutine());
                 break;
-            case FightState.InFight:
-                _fightCoroutine = StartCoroutine(InFightCoroutine());
+            case FightState.Guard:
+                _fightCoroutine = StartCoroutine(GuardCoroutine());
                 break;
             case FightState.Win:
                 _fightCoroutine = StartCoroutine(WinCoroutine());
@@ -127,21 +127,24 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         }
     }
 
-    IEnumerator StageSelectCoroutine()
+    IEnumerator AttackCoroutine()
     {
-        ReFitLogger.Info("StageSelectCoroutine 시작");
+        ReFitLogger.Info("AttackCoroutine 시작");
 
         ResetUI();
         yield return null;
 
         InGameUIs[0].SetActive(true);
-        yield return new WaitForSeconds(2f);
-
-        SetFightState(FightState.InFight);
+        while (true)
+        {
+            //적 체력 검사 : 적 체력 0 이하면 Win 상태로 전환
+            yield return null;
+        }
     }
-    IEnumerator InFightCoroutine()
+
+    IEnumerator GuardCoroutine()
     {
-        ReFitLogger.Info("InFightCoroutine 시작");
+        ReFitLogger.Info("GuardCoroutine 시작");
 
         ResetUI();
         yield return null;
@@ -149,8 +152,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         InGameUIs[1].SetActive(true);
         while (true)
         {
-            //플레이어 체력 검사 : 플레이어 체력 0 이하이면 Lose 상태로 전환
-            //처치 적 수 검사 : 4마리 처치 시 Win 상태로 전환
+            //플레이어 체력 검사 : 체력 0 이하면 Win 상태로 전환
             yield return null;
         }
     }

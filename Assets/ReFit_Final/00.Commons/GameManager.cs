@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Z_GyroManager MyGyroManager;
     [SerializeField] public ProfileManager MyProfileManager;
     [SerializeField] public DataManager MyDataManager;
+    [SerializeField] public AdventureManager MyAdventureManager;
     [SerializeField] public TestHandler MyTestHandler;
 
     [Header("Important UI")]
@@ -36,9 +37,10 @@ public class GameManager : MonoBehaviour
     public enum GameScene
     {
         TitleScene,
+        AdventureScene,
         FightScene,
         AxeScene,
-        CastleScene
+        SwimScene
     }
 
     private GameScene _currentScene;
@@ -108,6 +110,7 @@ public class GameManager : MonoBehaviour
         MyGyroManager.ResetReFitManager();
         MyProfileManager.ResetReFitManager();
         MyDataManager.ResetReFitManager();
+        MyAdventureManager.ResetReFitManager();
 
         MyUIManager.CloseAllUI();
 
@@ -203,17 +206,21 @@ public class GameManager : MonoBehaviour
                 _currentScene = GameScene.TitleScene;
                 SceneManager.LoadScene(0);
                 break;
+            case GameScene.AdventureScene:
+                _currentScene = GameScene.AdventureScene;
+                SceneManager.LoadScene(1);
+                break;
             case GameScene.FightScene:
                 _currentScene = GameScene.FightScene;
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(2);
                 break;
             case GameScene.AxeScene:
                 _currentScene = GameScene.AxeScene;
-                SceneManager.LoadScene(2);
-                break;
-            case GameScene.CastleScene:
-                _currentScene = GameScene.CastleScene;
                 SceneManager.LoadScene(3);
+                break;
+            case GameScene.SwimScene:
+                _currentScene = GameScene.SwimScene;
+                SceneManager.LoadScene(4);
                 break;
         }
     }

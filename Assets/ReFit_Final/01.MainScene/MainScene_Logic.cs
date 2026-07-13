@@ -7,9 +7,9 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
     enum MenuState
     {
         None, // 초기 상태
-        Fight, // 주요 컨텐츠 : 전투 씬
-        Axe, // 도끼 휘두르기
-        Castle // 성벽 지키기(회피 훈련 으로 변경 예정)
+        Adventure, // 주요 컨텐츠 : 모험
+        Profile, // 도끼 휘두르기
+        Options // 성벽 지키기(회피 훈련 으로 변경 예정)
     }
 
     MenuState currentMenu = MenuState.None;
@@ -17,7 +17,7 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
     //-----------------IReFitGyro----------------
     public void GyroInputLeft()
     {
-        MainScene_Player.PathEnum targetPath = MainScene_Player.PathEnum.NoneToAxe;
+        MainScene_Player.PathEnum targetPath = MainScene_Player.PathEnum.NoneToProfile;
         bool Movable = true;
 
         //메뉴 상태에 따라 좌측 입력 시 동작 다르게 구현
@@ -25,19 +25,19 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
         switch (currentMenu)
         {
             case MenuState.None:
-                currentMenu = MenuState.Axe;
-                targetPath = MainScene_Player.PathEnum.NoneToAxe;
+                currentMenu = MenuState.Profile;
+                targetPath = MainScene_Player.PathEnum.NoneToProfile;
                 break;
-            case MenuState.Fight:
+            case MenuState.Adventure:
                 Movable = false;
                 break;
-            case MenuState.Axe:
-                currentMenu = MenuState.Fight;
-                targetPath = MainScene_Player.PathEnum.AxeToFight;
+            case MenuState.Profile:
+                currentMenu = MenuState.Adventure;
+                targetPath = MainScene_Player.PathEnum.ProfileToAdventure;
                 break;
-            case MenuState.Castle:
-                currentMenu = MenuState.Axe;
-                targetPath = MainScene_Player.PathEnum.CastleToAxe;
+            case MenuState.Options:
+                currentMenu = MenuState.Profile;
+                targetPath = MainScene_Player.PathEnum.OptionsToProfile;
                 break;
         }
 
@@ -47,7 +47,7 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
 
     public void GyroInputRight()
     {
-        MainScene_Player.PathEnum targetPath = MainScene_Player.PathEnum.NoneToAxe;
+        MainScene_Player.PathEnum targetPath = MainScene_Player.PathEnum.NoneToProfile;
         bool Movable = true;
 
         //메뉴 상태에 따라 좌측 입력 시 동작 다르게 구현
@@ -55,18 +55,18 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
         switch (currentMenu)
         {
             case MenuState.None:
-                currentMenu = MenuState.Castle;
-                targetPath = MainScene_Player.PathEnum.NoneToCastle;
+                currentMenu = MenuState.Options;
+                targetPath = MainScene_Player.PathEnum.NoneToOptions;
                 break;
-            case MenuState.Fight:
-                currentMenu = MenuState.Axe;
-                targetPath = MainScene_Player.PathEnum.FightToAxe;
+            case MenuState.Adventure:
+                currentMenu = MenuState.Profile;
+                targetPath = MainScene_Player.PathEnum.AdventureToProfile;
                 break;
-            case MenuState.Axe:
-                currentMenu = MenuState.Castle;
-                targetPath = MainScene_Player.PathEnum.AxeToCastle;
+            case MenuState.Profile:
+                currentMenu = MenuState.Options;
+                targetPath = MainScene_Player.PathEnum.ProfileToOptions;
                 break;
-            case MenuState.Castle:
+            case MenuState.Options:
                 Movable = false;
                 break;
         }
@@ -81,13 +81,13 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
         {
             case MenuState.None:
                 break;
-            case MenuState.Fight:
-                GameManager.instance.ChangeScene(GameManager.GameScene.FightScene);
+            case MenuState.Adventure:
+                GameManager.instance.MyAdventureManager.ResetGameData();
+                GameManager.instance.ChangeScene(GameManager.GameScene.AdventureScene);
                 break;
-            case MenuState.Axe:
-                GameManager.instance.ChangeScene(GameManager.GameScene.AxeScene);
+            case MenuState.Profile:
                 break;
-            case MenuState.Castle:
+            case MenuState.Options:
                 break;
         }
     }

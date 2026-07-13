@@ -284,7 +284,7 @@ public class ProfileManager : MonoBehaviour, IReFitManager
     {
         string url = $"{baseURL}/api/v1/users/me/profile";
 
-        // 테스트용 더미 데이터 세팅 (서버 Enum 규격에 맞춰 대문자로 작성)
+        // 테스트용 더미 데이터 세팅
         ProfileRequestData testData = new ProfileRequestData
         {
             heightCm = 175.5f,

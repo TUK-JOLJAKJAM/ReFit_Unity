@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1317260450037952761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1778591551218937526}
+  - component: {fileID: 6476251532830003944}
+  m_Layer: 0
+  m_Name: AdventureManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1778591551218937526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317260450037952761}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680391855486302539}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6476251532830003944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317260450037952761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef913ee17154dd4b90b068808fe4f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdventureManager
 --- !u!1 &2144058746039285443
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +319,7 @@ Transform:
   - {fileID: 6548601681692940742}
   - {fileID: 8046918693413114550}
   - {fileID: 1265576796665727693}
+  - {fileID: 1778591551218937526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5388611273991329768
@@ -293,6 +338,7 @@ MonoBehaviour:
   MyGyroManager: {fileID: 8726899066019858164}
   MyProfileManager: {fileID: 8912292868689118807}
   MyDataManager: {fileID: 1424753660267566956}
+  MyAdventureManager: {fileID: 6476251532830003944}
   MyTestHandler: {fileID: 6925462851941075201}
   GyroHud: {fileID: 116777998777362767}
 --- !u!1001 &3855468602158916468

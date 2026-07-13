@@ -10,12 +10,12 @@ public class MainScene_Player : MonoBehaviour
 
     public enum PathEnum
     {
-        NoneToCastle,
-        NoneToAxe,
-        CastleToAxe,
-        AxeToCastle,
-        AxeToFight,
-        FightToAxe
+        NoneToOptions,
+        NoneToProfile,
+        OptionsToProfile,
+        ProfileToOptions,
+        ProfileToAdventure,
+        AdventureToProfile
     }
 
     Vector3[][] targetPaths =
