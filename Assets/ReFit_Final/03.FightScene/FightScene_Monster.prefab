@@ -507,6 +507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2074916042965880875}
   - component: {fileID: 2514720230080975987}
+  - component: {fileID: 716310882372607200}
   m_Layer: 0
   m_Name: FightScene_Monster
   m_TagString: Untagged
@@ -544,7 +545,7 @@ Animator:
   m_GameObject: {fileID: 3164020419786657910}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 41f081d5c6d286c47a33bed3f84de79a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 69ce5dd747afb75488c00ed0f554f1d6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8df71760fda713140b22c4bb170ff3d1, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -556,6 +557,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &716310882372607200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3164020419786657910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370137fbc0df4674987b05d996aac25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FightScene_Monster
+  monsterHP: 0
+  weakNess: 0
+  animator: {fileID: 2514720230080975987}
+  AttackEffect: {fileID: 2054981588678086399, guid: 250185fe79d107f47a5e7fd0762e2f13, type: 3}
+  HurtEffectRed: {fileID: 2904187214500139883, guid: 2e1713ef18e1f124eb501585ce332b94, type: 3}
+  HurtEffectBlue: {fileID: 6273314032007678079, guid: b8e5c06afc08d90448288e515bbeec29, type: 3}
+  HurtEffectGreen: {fileID: 1024364766253173906, guid: a5f62c3e888398b40a52b7ad3139cb2d, type: 3}
 --- !u!1 &3186208996189346375
 GameObject:
   m_ObjectHideFlags: 0

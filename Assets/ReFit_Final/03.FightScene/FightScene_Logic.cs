@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class FightScene_Logic : MonoBehaviour, IReFitGyro
 {
@@ -7,6 +8,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
     public enum FightState
     {
+        SkillSelect,
         Attack,
         Guard,
         Win,
@@ -21,36 +23,25 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
     public enum Skill
     {
-        Arm,
-        Shoulder,
-        Waist
+        Red,
+        Green,
+        Blue
     }
 
     public Animator PlayerAnimator;
+
+    public FightScene_Player Player;
+    public FightScene_Monster Enemy;
+
+    public FightScene_Attack gaugeController;
 
     //---------------IReFitGyro------------------
     public void GyroInputUp()
     {
         switch (GameState)
         {
-            case FightState.Attack:
-                PlayerAct();
-                break;
-            case FightState.Guard:
-                break;
-            case FightState.Win:
-                break;
-            case FightState.Lose:
-                break;
-        }
-    }
-    public void GyroInputDown()
-    {
-        switch (GameState)
-        {
-            case FightState.Attack:
-                break;
-            case FightState.Guard:
+            case FightState.SkillSelect:
+                SetFightState(FightState.Attack);
                 break;
             case FightState.Win:
                 break;
@@ -62,10 +53,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         switch (GameState)
         {
-            case FightState.Attack:
+            case FightState.SkillSelect:
                 ChangeSkillLeft();
-                break;
-            case FightState.Guard:
                 break;
             case FightState.Win:
                 break;
@@ -75,13 +64,10 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     }
     public void GyroInputRight()
     {
-
         switch (GameState)
         {
-            case FightState.Attack:
+            case FightState.SkillSelect:
                 ChangeSkillRight();
-                break;
-            case FightState.Guard:
                 break;
             case FightState.Win:
                 break;
@@ -94,10 +80,10 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     void Awake()
     {
         ResetUI();
-        GameState = FightState.Attack;
-        SetFightState(FightState.Attack);
+        GameState = FightState.SkillSelect;
+        SetFightState(FightState.SkillSelect);
 
-        CurrentSkill = Skill.Shoulder;
+        CurrentSkill = Skill.Green;
         SkillUI.SetSkillUI(CurrentSkill);
     }
     
@@ -112,6 +98,9 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         switch (GameState)
         {
+            case FightState.SkillSelect:
+                _fightCoroutine = StartCoroutine(SkillSelectCoroutine());
+                break;
             case FightState.Attack:
                 _fightCoroutine = StartCoroutine(AttackCoroutine());
                 break;
@@ -127,6 +116,17 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         }
     }
 
+    IEnumerator SkillSelectCoroutine()
+    {
+        ReFitLogger.Info("SkillSelectCoroutine 시작");
+
+        ResetUI();
+        yield return null;
+
+        InGameUIs[0].SetActive(true);
+        yield return null;
+    }
+
     IEnumerator AttackCoroutine()
     {
         ReFitLogger.Info("AttackCoroutine 시작");
@@ -134,12 +134,75 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         ResetUI();
         yield return null;
 
-        InGameUIs[0].SetActive(true);
-        while (true)
+        InGameUIs[1].SetActive(true);
+        yield return null;
+
+        float damage = 0;
+        int attackCount = 0;
+
+        bool isMovingUp = false;
+
+        AdventureManager adM = GameManager.instance.MyAdventureManager;
+
+        Enemy.SetMonster(adM.currentStageLevel, adM.RandomNode[adM.currentStageLevel-1].attackType);
+        gaugeController.SetFightUI(CurrentSkill);
+
+        while (attackCount < 5)
         {
-            //적 체력 검사 : 적 체력 0 이하면 Win 상태로 전환
+            //UI상태에 따라서 구분 -> 노차지, 차지 후 데미지 계산, Player.Attack(CurrentSkill), Enemy.Hurt(damage, CurrentSkill)
+            Vector2 GyroData = GameManager.instance.GyroHud.TestGyro;
+
+            // 1. 공격 대기(0.5초 이내) 창이 열려있고, 자이로 조건이 충족되면 즉시 취소 후 리셋
+            if (gaugeController.uiState == FightScene_Attack.UIState.Charged && GyroData.y <= -0.2f)
+            {
+                gaugeController.CancelAndFastReset();
+                gaugeController.uiState = FightScene_Attack.UIState.NoCharged;
+                Player.Attack(CurrentSkill);
+                Enemy.Hurt(damage, CurrentSkill); 
+                
+                if (Enemy.monsterHP <= 0)
+                {
+                    SetFightState(FightState.Win);
+                    yield break; // 몬스터가 죽었다면 코루틴 즉시 완전 종료
+                }
+
+                attackCount++;
+                isMovingUp = false;
+
+                /*while (gaugeController.Gauge.rectTransform.sizeDelta.x > gaugeController.GaugeSmallSize.x + 1f)
+                {
+                    yield return null;
+                }*/
+
+                continue;
+            }
+
+            // 2. 대기 시간 중이 아닐 때의 일반적인 게이지 증감 제어
+            if (gaugeController.uiState == FightScene_Attack.UIState.NoCharged)
+            {
+                if (GyroData.y >= 0.8f)
+                {
+                    if (!isMovingUp)
+                    {
+                        isMovingUp = true;
+                        gaugeController.StartGaugeUp();
+                    }
+                }
+                else
+                {
+                    if (isMovingUp)
+                    {
+                        isMovingUp = false;
+                        gaugeController.StartGaugeDown();
+                    }
+                }
+            }
+
             yield return null;
         }
+
+        yield return null;
+        SetFightState(FightState.Guard);
     }
 
     IEnumerator GuardCoroutine()
@@ -149,12 +212,27 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         ResetUI();
         yield return null;
 
-        InGameUIs[1].SetActive(true);
-        while (true)
+        InGameUIs[2].SetActive(true);
+        yield return null;
+
+        int guardCount = 0;
+        float guardPoint = 0;
+
+        //몬스터 데미지 계산
+        float damage = 0;
+
+        while (guardCount < 5)
         {
-            //플레이어 체력 검사 : 체력 0 이하면 Win 상태로 전환
+            //방어 UI 작동 후(판정에 맞춰서 guardPoint 증가(miss : 0, bad : 0.5, normal : 1, good : 1.5, perfect : 2)
+            //성공하면 guardCount++;
             yield return null;
         }
+
+        Enemy.Attack();
+        Player.Hurt(damage, guardPoint);
+        yield return null;
+
+        SetFightState(FightState.SkillSelect);
     }
     IEnumerator WinCoroutine()
     {
@@ -178,14 +256,14 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         switch (CurrentSkill)
         {
-            case Skill.Arm:
-                CurrentSkill = Skill.Waist;
+            case Skill.Red:
+                CurrentSkill = Skill.Blue;
                 break;
-            case Skill.Shoulder:
-                CurrentSkill = Skill.Arm;
+            case Skill.Green:
+                CurrentSkill = Skill.Red;
                 break;
-            case Skill.Waist:
-                CurrentSkill = Skill.Shoulder;
+            case Skill.Blue:
+                CurrentSkill = Skill.Green;
                 break;
         }
 
@@ -196,36 +274,17 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         switch (CurrentSkill)
         {
-            case Skill.Arm:
-                CurrentSkill = Skill.Shoulder;
+            case Skill.Red:
+                CurrentSkill = Skill.Green;
                 break;
-            case Skill.Shoulder:
-                CurrentSkill = Skill.Waist;
+            case Skill.Green:
+                CurrentSkill = Skill.Blue;
                 break;
-            case Skill.Waist:
-                CurrentSkill = Skill.Arm;
+            case Skill.Blue:
+                CurrentSkill = Skill.Red;
                 break;
         }
 
         SkillUI.SetSkillUI(CurrentSkill);
-    }
-
-    void PlayerAct()
-    {
-        switch (CurrentSkill)
-        {
-            //임시로 공격, 피격, 방어 애니메이션을 각각 Arm, Shoulder, Waist에 연결
-            //변경 시에는 플레이어 스크립트의 함수 호출.(애니메이터도 플레이어스크립트에 연결)
-            //플레이어 스크립트에서 CurrentSkill에 따라 다른 공격 이펙트 출력하게끔
-            case Skill.Arm:
-                PlayerAnimator.SetTrigger("Attack");
-                break;
-            case Skill.Shoulder:
-                PlayerAnimator.SetTrigger("Hurt");
-                break;
-            case Skill.Waist:
-                PlayerAnimator.SetTrigger("Guard");
-                break;
-        }
     }
 }

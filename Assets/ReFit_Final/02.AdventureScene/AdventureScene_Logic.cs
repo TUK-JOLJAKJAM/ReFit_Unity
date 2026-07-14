@@ -9,7 +9,7 @@ public class AdventureScene_Logic : MonoBehaviour, IReFitGyro
             AdventureManager adventureManager = GameManager.instance.MyAdventureManager;
             int level = adventureManager.currentStageLevel;
 
-            switch (adventureManager.RandomNode[level-1])
+            switch (adventureManager.RandomNode[level-1].type)
             {
                 case AdventureManager.NodeType.Fight:
                     //전투 세팅 함수 호출

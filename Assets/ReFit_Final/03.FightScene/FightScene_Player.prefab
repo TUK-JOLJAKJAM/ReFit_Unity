@@ -2520,7 +2520,7 @@ GameObject:
   - component: {fileID: 8418795421203517413}
   - component: {fileID: 7899031265697558262}
   - component: {fileID: 943537796935418497}
-  - component: {fileID: 612948647073780404}
+  - component: {fileID: 2161679624845725997}
   m_Layer: 0
   m_Name: FightScene_Player
   m_TagString: Untagged
@@ -2558,7 +2558,7 @@ Animator:
   m_GameObject: {fileID: 8377156518501290474}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0308cf4e83cf517488b60af58b290fe0, type: 3}
-  m_Controller: {fileID: 9100000, guid: 63aac00c12339f449aab083849dea4f1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0b26ed382acd73d4b8918e98f9b941a0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2620,7 +2620,7 @@ CapsuleCollider:
   m_Height: 1.45
   m_Direction: 1
   m_Center: {x: 0, y: 0.66, z: 0}
---- !u!114 &612948647073780404
+--- !u!114 &2161679624845725997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2629,9 +2629,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8377156518501290474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f631e2d1aa64344e887ab8f54205927, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b50a94dad04a7845b6a1a058a784e38, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MainScene_Player
+  m_EditorClassIdentifier: Assembly-CSharp::FightScene_Player
+  hp: 100
+  animator: {fileID: 8418795421203517413}
+  AttackEffectRed: {fileID: 2082350367179680024, guid: e1e2a95ce922bff40bc6882cabee28a6, type: 3}
+  AttackEffectGreen: {fileID: 4768268902445570056, guid: 96447a883cdb8324091543ea915a6e7f, type: 3}
+  AttackEffectBlue: {fileID: 4353602845344687590, guid: 3a4c9e4c2d0f481448abc88c1b8c3799, type: 3}
+  HurtEffect: {fileID: 8444686578626975709, guid: 3d71fa97d0ee3944780ca74c46986d33, type: 3}
 --- !u!1 &8479216898085942251
 GameObject:
   m_ObjectHideFlags: 0

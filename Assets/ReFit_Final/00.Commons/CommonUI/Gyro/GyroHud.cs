@@ -16,6 +16,8 @@ public class GyroHud : MonoBehaviour, IReFitUI
 
     float pointerOffsetMax = 40.0f;
 
+    public Vector2 TestGyro;
+
     public enum GyroDirection
     {
         Up,
@@ -65,12 +67,27 @@ public class GyroHud : MonoBehaviour, IReFitUI
 
                     // 자이로와 비슷하게 부드럽게 마우스 위치로 이동
                     hudPointer.anchoredPosition = Vector2.Lerp(hudPointer.anchoredPosition, localPoint, Time.deltaTime * 10.0f);
+
+                    // ---------------- [새로 추가된 코드] ----------------
+                    // 현재 UI의 위치(anchoredPosition)를 최대 반경(pointerOffsetMax)으로 나누어 -1 ~ 1 범위로 변환합니다.
+                    if (pointerOffsetMax > 0)
+                    {
+                        TestGyro = hudPointer.anchoredPosition / pointerOffsetMax;
+                    }
+                    // -------------------------------------------------
                 }
             }
             else
             {
                 // 마우스를 떼면 다시 중앙으로 부드럽게 복귀
                 hudPointer.anchoredPosition = Vector2.Lerp(hudPointer.anchoredPosition, Vector2.zero, Time.deltaTime * 5.0f);
+                // ---------------- [새로 추가된 코드] ----------------
+                // UI가 중앙으로 복귀하는 흐름에 맞춰 TestGyro 값도 자연스럽게 변환됩니다.
+                if (pointerOffsetMax > 0)
+                {
+                    TestGyro = new Vector2(0, 0);
+                }
+                // --------------------------------------------------
             }
         }
         else

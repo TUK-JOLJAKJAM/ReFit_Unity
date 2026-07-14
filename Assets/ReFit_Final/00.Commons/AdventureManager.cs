@@ -4,6 +4,13 @@ public class AdventureManager : MonoBehaviour, IReFitManager
 {
     #region 변수 선언
     [System.Serializable]
+    public struct Node
+    {
+        public int id;
+        public NodeType type;
+        public FightScene_Logic.Skill attackType;
+    }
+    [System.Serializable]
     public enum NodeType
     {
         Fight,
@@ -13,7 +20,7 @@ public class AdventureManager : MonoBehaviour, IReFitManager
     }
 
     //--- 게임 정보 ---
-    public NodeType[] RandomNode { get; private set; }
+    public Node[] RandomNode { get; private set; }
     public int currentStageLevel { get; private set; }
     public int RedGauageLevel { get; private set; }
     public int BlueGauageLevel { get; private set; }
@@ -23,7 +30,7 @@ public class AdventureManager : MonoBehaviour, IReFitManager
     #region IReFitManager 코드
     public void ResetReFitManager()
     {
-        RandomNode = new NodeType[5];
+        RandomNode = new Node[5];
         currentStageLevel = 1;
         RedGauageLevel = 0;
         BlueGauageLevel = 0;
@@ -38,16 +45,24 @@ public class AdventureManager : MonoBehaviour, IReFitManager
     #region 게임 세팅
     public void SetRandomNode()
     {
-        RandomNode[4] = NodeType.Boss;
-
+        int bossTypeInt = Random.Range(1, 4);
+        RandomNode[4].id = 4;
+        RandomNode[4].type = NodeType.Boss;
+        RandomNode[4].attackType = bossTypeInt == 1 ? FightScene_Logic.Skill.Red :
+                bossTypeInt == 2 ? FightScene_Logic.Skill.Blue :
+                FightScene_Logic.Skill.Green;
         for (int i = 0; i < 4; i++)
         {
-            RandomNode[i] = NodeType.Fight;
+            int typeInt = Random.Range(1, 4);
+
+            RandomNode[i].type = NodeType.Fight;
+            RandomNode[i].id = i;
+            RandomNode[i].attackType = typeInt == 1 ? FightScene_Logic.Skill.Red :
+                typeInt == 2 ? FightScene_Logic.Skill.Blue :
+                FightScene_Logic.Skill.Green;
 
             //Axe, Swim 개발 후 밑에 주석 풀기
-            /*int typeInt = Random.Range(1, 4);
-
-            RandomNode[i] = typeInt == 1 ? NodeType.Fight :
+            /*RandomNode[i] = typeInt == 1 ? NodeType.Fight :
                 typeInt == 2 ? NodeType.Axe :
                 NodeType.Swim;*/
         }

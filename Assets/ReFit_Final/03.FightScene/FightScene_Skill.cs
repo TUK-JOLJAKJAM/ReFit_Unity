@@ -26,17 +26,17 @@ public class FightScene_Skill : MonoBehaviour
 
         switch (newSkill)
         {
-            case FightScene_Logic.Skill.Arm:
+            case FightScene_Logic.Skill.Red:
                 LeftSkill.GetChild(2).gameObject.SetActive(true);
                 RightSkill.GetChild(2).gameObject.SetActive(true);
                 CenterSKill.GetChild(2).gameObject.SetActive(true);
                 break;
-            case FightScene_Logic.Skill.Shoulder:
+            case FightScene_Logic.Skill.Green:
                 LeftSkill.GetChild(0).gameObject.SetActive(true);
                 RightSkill.GetChild(0).gameObject.SetActive(true);
                 CenterSKill.GetChild(0).gameObject.SetActive(true);
                 break;
-            case FightScene_Logic.Skill.Waist:
+            case FightScene_Logic.Skill.Blue:
                 LeftSkill.GetChild(1).gameObject.SetActive(true);
                 RightSkill.GetChild(1).gameObject.SetActive(true);
                 CenterSKill.GetChild(1).gameObject.SetActive(true);
