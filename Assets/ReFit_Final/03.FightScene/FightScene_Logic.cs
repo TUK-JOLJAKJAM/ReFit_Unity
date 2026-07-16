@@ -137,7 +137,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         InGameUIs[1].SetActive(true);
         yield return null;
 
-        float damage = 0;
+        float damage = 5;
         int attackCount = 0;
 
         bool isMovingUp = false;
@@ -223,7 +223,6 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         while (guardCount < 5)
         {
-            //방어 UI 작동 후(판정에 맞춰서 guardPoint 증가(miss : 0, bad : 0.5, normal : 1, good : 1.5, perfect : 2)
             //성공하면 guardCount++;
             yield return null;
         }
