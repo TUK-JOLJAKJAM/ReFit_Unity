@@ -8,6 +8,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
     public enum FightState
     {
+        Loading,
         SkillSelect,
         Attack,
         Guard,
@@ -80,8 +81,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     void Awake()
     {
         ResetUI();
-        GameState = FightState.SkillSelect;
-        SetFightState(FightState.SkillSelect);
+        GameState = FightState.Loading;
+        SetFightState(FightState.Loading);
 
         CurrentSkill = Skill.Green;
         SkillUI.SetSkillUI(CurrentSkill);
@@ -98,6 +99,9 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         switch (GameState)
         {
+            case FightState.Loading:
+                _fightCoroutine = StartCoroutine(LoadingCoroutine());
+                break;
             case FightState.SkillSelect:
                 _fightCoroutine = StartCoroutine(SkillSelectCoroutine());
                 break;
@@ -114,6 +118,16 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
                 _fightCoroutine = StartCoroutine(LoseCoroutine());
                 break;
         }
+    }
+    
+    IEnumerator LoadingCoroutine()
+    {
+        ReFitLogger.Info("LoadingState Ω√¿€");
+        AdventureManager adM = GameManager.instance.MyAdventureManager;
+        yield return null;
+
+        Enemy.SetMonster(adM.currentStageLevel, adM.RandomNode[adM.currentStageLevel - 1].attackType);
+        SetFightState(FightState.SkillSelect);
     }
 
     IEnumerator SkillSelectCoroutine()
@@ -142,9 +156,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         bool isMovingUp = false;
 
-        AdventureManager adM = GameManager.instance.MyAdventureManager;
-
-        Enemy.SetMonster(adM.currentStageLevel, adM.RandomNode[adM.currentStageLevel-1].attackType);
+        
         gaugeController.SetFightUI(CurrentSkill);
 
         while (attackCount < 5)
@@ -217,7 +229,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         InGameUIs[2].SetActive(true);
         yield return null;
 
-        float damage = 0;
+        float damage = 50;
         int guardPoint = 0;
 
         fightScene_Guard.SetMonsterAttack();

@@ -42,5 +42,11 @@ public class FightScene_Monster : MonoBehaviour
         }
 
         monsterHP -= damage;
+
+        if (monsterHP <= 1)
+        {
+            monsterHP = 0;
+            animator.SetTrigger("die");
+        }
     }
 }

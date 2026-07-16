@@ -34,7 +34,7 @@ public class FightScene_Player : MonoBehaviour
 
     public void Hurt(float damage, float guardPoint)
     {
-        if (guardPoint > 5)
+        if (guardPoint > 2)
         {
             animator.SetTrigger("Guard");
         }
@@ -43,6 +43,6 @@ public class FightScene_Player : MonoBehaviour
             animator.SetTrigger("Hurt");
         }
 
-        hp -= damage * (guardPoint / 10);
+        hp -= damage * (guardPoint / 5);
     }
 }

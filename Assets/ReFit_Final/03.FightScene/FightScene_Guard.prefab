@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1263830893375134299}
   - component: {fileID: 3791653468656353664}
   - component: {fileID: 1535737224080924859}
+  - component: {fileID: 155350032137173238}
   m_Layer: 5
   m_Name: Guard_Shield
   m_TagString: Untagged
@@ -165,6 +166,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FightScene_Shield
   guardPoint: 0
   fightScene_Guard: {fileID: 6547764979857593460}
+--- !u!114 &155350032137173238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746028246457747783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e4981d5f3ae694ebdd9c2cab051b4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FightScene_ShieldMove
+  speed: 10
+  rect: {fileID: 70409076581197641}
 --- !u!1 &7194375105115444066
 GameObject:
   m_ObjectHideFlags: 0
