@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class FightScene_Shield : MonoBehaviour
 {
+    public FightScene_PlayerUI playerUI;
     // --- 적 UI 삭제 ---
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(collision.gameObject);
         guardPoint++;
         fightScene_Guard.EnemyCount--;
+        playerUI.UpdateShieldBar(guardPoint);
     }
 
     // --- 가드포인트 ---

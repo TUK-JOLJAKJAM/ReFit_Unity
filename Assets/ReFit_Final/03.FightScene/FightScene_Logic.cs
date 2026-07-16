@@ -151,7 +151,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         InGameUIs[1].SetActive(true);
         yield return null;
 
-        float damage = 5;
+        float damage = 2;
         int attackCount = 0;
 
         bool isMovingUp = false;
@@ -161,7 +161,6 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         while (attackCount < 5)
         {
-            //UI상태에 따라서 구분 -> 노차지, 차지 후 데미지 계산, Player.Attack(CurrentSkill), Enemy.Hurt(damage, CurrentSkill)
             Vector2 GyroData = GameManager.instance.GyroHud.TestGyro;
 
             // 1. 공격 대기(0.5초 이내) 창이 열려있고, 자이로 조건이 충족되면 즉시 취소 후 리셋
@@ -170,7 +169,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
                 gaugeController.CancelAndFastReset();
                 gaugeController.uiState = FightScene_Attack.UIState.NoCharged;
                 Player.Attack(CurrentSkill);
-                Enemy.Hurt(damage, CurrentSkill); 
+                float TotalDamage = damage * (int)gaugeController.lastAttackGrade;
+                Enemy.Hurt(TotalDamage, CurrentSkill); 
                 
                 if (Enemy.monsterHP <= 0)
                 {
@@ -219,6 +219,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
     public FightScene_Guard fightScene_Guard;
     public FightScene_Shield fightScene_Shield;
+    public FightScene_PlayerUI playerUI;
     IEnumerator GuardCoroutine()
     {
         ReFitLogger.Info("GuardCoroutine 시작");
@@ -242,6 +243,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         Player.Hurt(damage, guardPoint);
         yield return null;
 
+        playerUI.UpdateShieldBar(0);
         SetFightState(FightState.SkillSelect);
     }
     IEnumerator WinCoroutine()

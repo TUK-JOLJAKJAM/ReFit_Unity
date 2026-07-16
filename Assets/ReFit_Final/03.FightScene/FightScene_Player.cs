@@ -1,9 +1,11 @@
+using System.Xml.Schema;
 using UnityEngine;
 
 public class FightScene_Player : MonoBehaviour
 {
     //오브젝트 데이터
     public float hp = 100.0f;
+    public float MaxHP = 100.0f;
 
     public Animator animator;
 
@@ -12,6 +14,7 @@ public class FightScene_Player : MonoBehaviour
     public GameObject AttackEffectBlue;
 
     public GameObject HurtEffect;
+
     public void Attack(FightScene_Logic.Skill type)
     {
         animator.SetTrigger("Attack");
@@ -32,6 +35,7 @@ public class FightScene_Player : MonoBehaviour
         }
     }
 
+    public FightScene_PlayerUI playerUI;
     public void Hurt(float damage, float guardPoint)
     {
         if (guardPoint > 2)
@@ -43,6 +47,8 @@ public class FightScene_Player : MonoBehaviour
             animator.SetTrigger("Hurt");
         }
 
-        hp -= damage * (guardPoint / 5);
+        float guardedDamage = damage * ((5 - guardPoint) / 5);
+        hp -= guardedDamage;
+        playerUI.UpdateHpBar(guardedDamage, MaxHP);
     }
 }

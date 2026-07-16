@@ -91,6 +91,17 @@ public class FightScene_Attack : MonoBehaviour
     /// <summary>
     /// 공격 대기 상태를 강제로 취소하고, 게이지를 매우 빠르게 최소치로 줄입니다.
     /// </summary>
+    float attackTime = 0;
+    public AttackGrade lastAttackGrade = AttackGrade.Miss;
+    [System.Serializable]
+    public enum AttackGrade
+    {
+        Miss,
+        Bad,
+        Normal,
+        Good,
+        Perfect
+    }
     public void CancelAndFastReset()
     {
         if (attackWaitCoroutine != null) StopCoroutine(attackWaitCoroutine);
@@ -99,6 +110,12 @@ public class FightScene_Attack : MonoBehaviour
 
         if (gaugeCoroutine != null) StopCoroutine(gaugeCoroutine);
         gaugeCoroutine = StartCoroutine(Co_ChangeGaugeWidth(GaugeSmallSize, 1000f, DefaultColor)); // 빠르게 감소
+
+        if(attackTimeCoroutine != null) StopCoroutine(attackTimeCoroutine);
+        lastAttackGrade = attackTime <= waitTime / 4 ? AttackGrade.Perfect :
+                attackTime <= waitTime / 2 ? AttackGrade.Good :
+                attackTime <= waitTime * 3 / 4 ? AttackGrade.Normal :
+                AttackGrade.Bad;
     }
 
     // ==========================================
@@ -135,10 +152,12 @@ public class FightScene_Attack : MonoBehaviour
         gaugeCoroutine = null;
     }
 
+    public float waitTime = 1.0f;
     private IEnumerator Co_AttackWait()
     {
-        // 0.5초 동안 대기 (이 사이에 외부에서 CancelAndFastReset이 호출되면 이 코루틴은 완전히 종료됨)
-        yield return new WaitForSeconds(0.5f);
+        attackTimeCoroutine = StartCoroutine(AttackTime());
+        // 대기 (이 사이에 외부에서 CancelAndFastReset이 호출되면 이 코루틴은 완전히 종료됨)
+        yield return new WaitForSeconds(waitTime);
 
         // --------------------------------------------------
         // [만료 처리] 0.5초 동안 -0.2 밑으로 안 내려와서 타이머가 끝난 경우
@@ -155,5 +174,20 @@ public class FightScene_Attack : MonoBehaviour
         // 최소치(5f)까지 "빠른 속도(2000f)"로 감소시킵니다.
         if (gaugeCoroutine != null) StopCoroutine(gaugeCoroutine);
         gaugeCoroutine = StartCoroutine(Co_ChangeGaugeWidth(GaugeSmallSize, 2000f));
+
+        if(attackTimeCoroutine != null) StopCoroutine(attackTimeCoroutine);
+        lastAttackGrade = AttackGrade.Miss;
+    }
+
+    Coroutine attackTimeCoroutine;
+    IEnumerator AttackTime()
+    {
+        attackTime = 0;
+
+        while (true)
+        {
+            attackTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }
