@@ -93,8 +93,8 @@ public class GyroHud : MonoBehaviour, IReFitUI
         else
         {
             hudPointer.anchoredPosition = Vector2.Lerp(hudPointer.anchoredPosition,
-                new Vector2(gameManager.MyGyroManager.GetNormalizedOffsetGyroX() *
-                pointerOffsetMax, gameManager.MyGyroManager.GetNormalizedOffsetGyroY() * pointerOffsetMax),
+                new Vector2(gameManager.MyGyroManager.GetNormalizedOffsetGyroY() *
+                pointerOffsetMax, -gameManager.MyGyroManager.GetNormalizedOffsetGyroX() * pointerOffsetMax),
                 Time.deltaTime * 5.0f);
         }
     }

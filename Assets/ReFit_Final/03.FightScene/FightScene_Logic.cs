@@ -170,7 +170,12 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         while (attackCount < 5)
         {
-            Vector2 GyroData = GameManager.instance.GyroHud.TestGyro;
+            Vector2 GyroData;
+            if (GameManager.instance.MyTestHandler.isTestMode)
+                GyroData = GameManager.instance.GyroHud.TestGyro;
+            else 
+                //Y,X축
+                GyroData = new Vector2(GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroY(), -GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroX());
 
             // 1. 공격 대기(0.5초 이내) 창이 열려있고, 자이로 조건이 충족되면 즉시 취소 후 리셋
             if (gaugeController.uiState == FightScene_Attack.UIState.Charged && GyroData.y <= -0.2f)
