@@ -73,6 +73,7 @@ public class FightScene_Attack : MonoBehaviour
     {
         if (uiState == UIState.NoCharged)
         {
+            Gauge.color = DefaultColor;
             if (gaugeCoroutine != null) StopCoroutine(gaugeCoroutine);
             gaugeCoroutine = StartCoroutine(Co_ChangeGaugeWidth(GaugeFullSize, 300f));
         }
@@ -96,6 +97,8 @@ public class FightScene_Attack : MonoBehaviour
     float attackTime = 0;
     public AttackGrade lastAttackGrade = AttackGrade.Miss;
     public int[] attackData = new int[5];
+    public List<Dictionary<string, string>> TotalAttackData = new List<Dictionary<string, string>>();
+
     [System.Serializable]
     public enum AttackGrade
     {
@@ -121,6 +124,12 @@ public class FightScene_Attack : MonoBehaviour
                 AttackGrade.Bad;
 
         attackData[(int)lastAttackGrade]++;
+        TotalAttackData.Add(new Dictionary<string, string> {
+            { 
+                "attackGrade, GyroQuaternion, attackTime", 
+                $"{lastAttackGrade}, {GameManager.instance.MyGyroManager.GetOffsetGyro()}, {attackTime}"
+            } 
+        });
     }
 
     // ==========================================
@@ -183,6 +192,13 @@ public class FightScene_Attack : MonoBehaviour
         if(attackTimeCoroutine != null) StopCoroutine(attackTimeCoroutine);
         lastAttackGrade = AttackGrade.Miss;
         attackData[(int)lastAttackGrade]++;
+
+        TotalAttackData.Add(new Dictionary<string, string> {
+            {
+                "attackGrade, GyroQuaternion, attackTime",
+                $"{lastAttackGrade}, {GameManager.instance.MyGyroManager.GetOffsetGyro()}, {attackTime}"
+            }
+        });
     }
 
     Coroutine attackTimeCoroutine;

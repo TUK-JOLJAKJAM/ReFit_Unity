@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -75,8 +76,8 @@ public class ProfileManager : MonoBehaviour, IReFitManager
     private readonly string baseURL = "http://43.200.20.216";
 
     // 인증 토큰 보관 변수
-    private string _authToken = "";
-    private string _refreshToken = "";
+    public string _authToken { get; private set; }
+    public string _refreshToken { get; private set; }
 
     // 연속 재발급 차단을 위한 시간 기록 변수
     private float _lastRefreshTime = -999f;

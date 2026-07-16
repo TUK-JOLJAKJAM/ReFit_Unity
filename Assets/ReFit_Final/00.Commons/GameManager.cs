@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public string GameVersion = "1.0.0";
+
     bool isFirstLoad = true;
     public static GameManager instance { get; private set; }
 

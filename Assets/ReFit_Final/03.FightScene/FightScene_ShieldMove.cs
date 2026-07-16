@@ -16,7 +16,8 @@ public class FightScene_ShieldMove : MonoBehaviour
         if(GameManager.instance.MyTestHandler.isTestMode)
             newX = thisPos.x + GameManager.instance.GyroHud.TestGyro.x * speed * Time.deltaTime;
         else
-            newX = thisPos.x + GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroY() * speed * Time.deltaTime;
+            //[수정필요]손목 보정치가 적용된 값을 가져오는 함수로 변경해야됨
+            newX = thisPos.x + -GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroZ() * speed * Time.deltaTime;
 
             // 2. Mathf.Clamp를 사용하여 X 값을 -304에서 304 사이로 제한합니다.
             newX = Mathf.Clamp(newX, -304f, 304f);

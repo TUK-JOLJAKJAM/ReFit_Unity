@@ -1,6 +1,8 @@
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -23,6 +25,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
     public FightScene_Skill SkillUI;
     Skill CurrentSkill;
+    int[] SkillSelectCount = { 0, 0, 0 };
 
     public enum Skill
     {
@@ -90,6 +93,9 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         CurrentSkill = Skill.Green;
         SkillUI.SetSkillUI(CurrentSkill);
+
+        StartTime = 0;
+        EndTime = 0;
     }
 
     void SetFightState(FightState newState)
@@ -135,6 +141,9 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         AdventureManager adM = GameManager.instance.MyAdventureManager;
         yield return null;
 
+        StartTime = GetTime();
+        yield return null;
+
         Enemy.SetMonster(adM.currentStageLevel, adM.RandomNode[adM.currentStageLevel - 1].attackType);
         SetFightState(FightState.SkillSelect);
     }
@@ -165,20 +174,44 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         bool isMovingUp = false;
 
+        int blueAttackDir = 1;
 
         gaugeController.SetFightUI(CurrentSkill);
+        SkillSelectCount[(int)CurrentSkill]++;
 
         while (attackCount < 5)
         {
-            Vector2 GyroData;
+            //수정 전 코드(혹시모르니 남겨놓음 일단)
+            /*Vector2 GyroData;
+
             if (GameManager.instance.MyTestHandler.isTestMode)
                 GyroData = GameManager.instance.GyroHud.TestGyro;
             else 
                 //Y,X축
-                GyroData = new Vector2(GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroY(), -GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroX());
+                GyroData = new Vector2(GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroY(),
+                    -GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroX());*/
+
+            float GyroValue = 0;
+            if (GameManager.instance.MyTestHandler.isTestMode) GyroValue = GameManager.instance.GyroHud.TestGyro.y;
+            else
+            {
+                switch (CurrentSkill)
+                {
+                    //[수정필요]각 관절 별 보정값 가져오는 함수로 수정해야함.
+                    case Skill.Red:
+                        GyroValue = GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroY();
+                        break;
+                    case Skill.Green:
+                        GyroValue = GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroY();
+                        break;
+                    case Skill.Blue://[수정필요]오른쪽이 시작임을 표시하는 UI가 없음. 방향UI추가해야됨.
+                        GyroValue = GameManager.instance.MyGyroManager.GetNormalizedOffsetGyroX() * blueAttackDir;
+                        break;
+                }
+            }
 
             // 1. 공격 대기(0.5초 이내) 창이 열려있고, 자이로 조건이 충족되면 즉시 취소 후 리셋
-            if (gaugeController.uiState == FightScene_Attack.UIState.Charged && GyroData.y <= -0.2f)
+            if (gaugeController.uiState == FightScene_Attack.UIState.Charged && GyroValue <= 0.1f)
             {
                 gaugeController.CancelAndFastReset();
                 gaugeController.uiState = FightScene_Attack.UIState.NoCharged;
@@ -194,14 +227,14 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
                 attackCount++;
                 isMovingUp = false;
-
+                blueAttackDir *= -1;
                 continue;
             }
 
             // 2. 대기 시간 중이 아닐 때의 일반적인 게이지 증감 제어
             if (gaugeController.uiState == FightScene_Attack.UIState.NoCharged)
             {
-                if (GyroData.y >= 0.8f)
+                if (GyroValue >= 0.8f)
                 {
                     if (!isMovingUp)
                     {
@@ -263,14 +296,21 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         ResetUI();
         yield return null;
 
+        EndTime = GetTime();
+        yield return null;
+
         InGameUI[3].SetActive(true);
         InGameUI[3]?.GetComponent<Animator>().SetTrigger("Win");
         InGameUI[3]?.GetComponent<FightScene_Win>().SetWinUI(gaugeController.attackData, playTime, Player.hp);
         yield return null;
+
+        SaveData();
+        yield return null;
     }
+
+
     IEnumerator LoseCoroutine()
     {
-
         yield return new WaitForSeconds(2f);
     }
 
@@ -279,6 +319,84 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         foreach (var ui in InGameUI)
         {
             ui.SetActive(false);
+        }
+    }
+
+    void SaveData()
+    {
+        // 값 계산
+        int maxSelected = Mathf.Max(SkillSelectCount);
+        string primaryPart = maxSelected == SkillSelectCount[0] ? "LEG" ://[수정필요]ARM이 되어야 하는데(아니면 의학용어 이두근) 없어서 임시로 LEG로 해놓음.
+            maxSelected == SkillSelectCount[1] ? "SHOULDER" :
+            "WAIST";
+        int score = gaugeController.attackData[1] + gaugeController.attackData[2] * 2 + gaugeController.attackData[3] * 3 + gaugeController.attackData[4] * 4; //레전드 대충 점수계산.
+        int actionCount = gaugeController.attackData.Sum();
+        int successCount = gaugeController.attackData.Sum() - gaugeController.attackData[0];
+        int failCount = gaugeController.attackData[0];
+
+        // 1. 내부 딕셔너리 및 리스트 정의
+        var summary = new Dictionary<string, string> { 
+            { "stageLevel", $"{GameManager.instance.MyAdventureManager.currentStageLevel}" } 
+        };
+
+        var bodyParts = new List<BodyPartSummary>
+        {      
+            new BodyPartSummary
+            {
+                //이 부분은 웹에서 따로 체크하는게 좋을 듯 싶음
+                //아래는 더미데이터? 아무튼
+                //보낸다고 한다면 몸 체크 씬 만들어서 ROM만 전송하는건 유의미할듯
+                bodyPart = "SHOULDER",
+                side = "BOTH",
+                metrics = new Dictionary<string, string>
+                {
+                    { "rom_angle", "120" }
+                }
+            }  
+        
+        };
+        var dataList = gaugeController.TotalAttackData;
+
+        // 2. 함수 호출 한 번으로 전송 완료
+        GameManager.instance.MyDataManager.SaveGameHistory(
+            "Adventure",
+            "Fight",
+            GameManager.instance.GameVersion,
+            primaryPart,
+            SystemInfo.deviceUniqueIdentifier,
+            StartTime, // startedAtMs
+            EndTime, // endedAtMs
+            score,
+            actionCount,
+            successCount,
+            failCount,
+            summary,
+            bodyParts,
+            dataList,
+            (success, result) => {
+                if (success) Debug.Log("저장 완료!");
+            }
+        );
+    }
+
+    long StartTime;
+    long EndTime;
+    long GetTime()
+    {
+        // 1. 현재 로컬 시간 가져오기
+        DateTime now = DateTime.UtcNow;
+
+        // 2. 지정한 포맷으로 변환 ("yyyyMMddHHmmssff")
+        string customFormat = now.ToString("yyyyMMddHHmmssff");
+
+        if(long.TryParse(customFormat, out long value))
+        {
+            return value;
+        }
+        else
+        {
+            ReFitLogger.Error("시간 변환에 실패했습니다.");
+            return 1234;
         }
     }
 
