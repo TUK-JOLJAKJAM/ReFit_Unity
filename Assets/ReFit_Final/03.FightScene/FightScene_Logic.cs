@@ -205,6 +205,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         SetFightState(FightState.Guard);
     }
 
+    public FightScene_Guard fightScene_Guard;
+    public FightScene_Shield fightScene_Shield;
     IEnumerator GuardCoroutine()
     {
         ReFitLogger.Info("GuardCoroutine 시작");
@@ -215,17 +217,14 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         InGameUIs[2].SetActive(true);
         yield return null;
 
-        int guardCount = 0;
-        float guardPoint = 0;
-
-        //몬스터 데미지 계산
         float damage = 0;
+        int guardPoint = 0;
 
-        while (guardCount < 5)
-        {
-            //성공하면 guardCount++;
-            yield return null;
-        }
+        fightScene_Guard.SetMonsterAttack();
+        yield return null;
+
+        yield return fightScene_Shield.guardRoutine();
+        guardPoint = fightScene_Shield.guardPoint;
 
         Enemy.Attack();
         Player.Hurt(damage, guardPoint);
