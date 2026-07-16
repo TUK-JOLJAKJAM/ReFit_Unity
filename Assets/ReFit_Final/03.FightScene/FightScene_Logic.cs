@@ -1,10 +1,12 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
 public class FightScene_Logic : MonoBehaviour, IReFitGyro
 {
-    public GameObject[] InGameUIs;
+    public GameObject[] InGameUI;
 
     public enum FightState
     {
@@ -45,8 +47,10 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
                 SetFightState(FightState.Attack);
                 break;
             case FightState.Win:
+                GameManager.instance.ChangeScene(GameManager.GameScene.AdventureScene);
                 break;
             case FightState.Lose:
+                GameManager.instance.ChangeScene(GameManager.GameScene.TitleScene);
                 break;
         }
     }
@@ -87,11 +91,11 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         CurrentSkill = Skill.Green;
         SkillUI.SetSkillUI(CurrentSkill);
     }
-    
+
     void SetFightState(FightState newState)
     {
         GameState = newState;
-        
+
         if (_fightCoroutine != null)
         {
             StopCoroutine(_fightCoroutine);
@@ -101,6 +105,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         {
             case FightState.Loading:
                 _fightCoroutine = StartCoroutine(LoadingCoroutine());
+                playTimeRoutine = StartCoroutine(playTimeCoroutine());
                 break;
             case FightState.SkillSelect:
                 _fightCoroutine = StartCoroutine(SkillSelectCoroutine());
@@ -113,13 +118,17 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
                 break;
             case FightState.Win:
                 _fightCoroutine = StartCoroutine(WinCoroutine());
+                StopCoroutine(playTimeRoutine);
                 break;
             case FightState.Lose:
-                _fightCoroutine = StartCoroutine(LoseCoroutine());
+                _fightCoroutine = StartCoroutine(WinCoroutine());
+                //Lose 개발한 뒤에 위에거 지우기
+                //_fightCoroutine = StartCoroutine(LoseCoroutine());
+                StopCoroutine(playTimeRoutine);
                 break;
         }
     }
-    
+
     IEnumerator LoadingCoroutine()
     {
         ReFitLogger.Info("LoadingState 시작");
@@ -137,7 +146,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         ResetUI();
         yield return null;
 
-        InGameUIs[0].SetActive(true);
+        InGameUI[0].SetActive(true);
         yield return null;
     }
 
@@ -148,7 +157,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         ResetUI();
         yield return null;
 
-        InGameUIs[1].SetActive(true);
+        InGameUI[1].SetActive(true);
         yield return null;
 
         float damage = 2;
@@ -156,7 +165,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         bool isMovingUp = false;
 
-        
+
         gaugeController.SetFightUI(CurrentSkill);
 
         while (attackCount < 5)
@@ -170,8 +179,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
                 gaugeController.uiState = FightScene_Attack.UIState.NoCharged;
                 Player.Attack(CurrentSkill);
                 float TotalDamage = damage * (int)gaugeController.lastAttackGrade;
-                Enemy.Hurt(TotalDamage, CurrentSkill); 
-                
+                Enemy.Hurt(TotalDamage, CurrentSkill);
+
                 if (Enemy.monsterHP <= 0)
                 {
                     SetFightState(FightState.Win);
@@ -180,11 +189,6 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
                 attackCount++;
                 isMovingUp = false;
-
-                /*while (gaugeController.Gauge.rectTransform.sizeDelta.x > gaugeController.GaugeSmallSize.x + 1f)
-                {
-                    yield return null;
-                }*/
 
                 continue;
             }
@@ -227,7 +231,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         ResetUI();
         yield return null;
 
-        InGameUIs[2].SetActive(true);
+        InGameUI[2].SetActive(true);
         yield return null;
 
         float damage = 50;
@@ -246,25 +250,35 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         playerUI.UpdateShieldBar(0);
         SetFightState(FightState.SkillSelect);
     }
+
     IEnumerator WinCoroutine()
     {
-        yield return new WaitForSeconds(2f);
+        ReFitLogger.Info("WinCoroutine 시작");
+
+        ResetUI();
+        yield return null;
+
+        InGameUI[3].SetActive(true);
+        InGameUI[3]?.GetComponent<Animator>().SetTrigger("Win");
+        InGameUI[3]?.GetComponent<FightScene_Win>().SetWinUI(gaugeController.attackData, playTime, Player.hp);
+        yield return null;
     }
     IEnumerator LoseCoroutine()
     {
+
         yield return new WaitForSeconds(2f);
     }
 
     void ResetUI()
     {
-        foreach (var ui in InGameUIs)
+        foreach (var ui in InGameUI)
         {
             ui.SetActive(false);
         }
     }
 
     //----------InFight상태-------------
-    void ChangeSkillLeft() 
+    void ChangeSkillLeft()
     {
         switch (CurrentSkill)
         {
@@ -298,5 +312,20 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         }
 
         SkillUI.SetSkillUI(CurrentSkill);
+    }
+
+    // --- 플레이타임 ---
+    public float playTime;
+    Coroutine playTimeRoutine;
+
+    IEnumerator playTimeCoroutine()
+    {
+        playTime = 0;
+
+        while (true)
+        {
+            playTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }

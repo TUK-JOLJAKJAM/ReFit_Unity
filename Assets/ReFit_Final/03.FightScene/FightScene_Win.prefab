@@ -305,7 +305,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6618124860144918888}
   - {fileID: 8231482220018213054}
   - {fileID: 7735311123675021781}
   - {fileID: 1564908140311260010}
@@ -562,11 +561,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2715414650421851401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: -2.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 50, y: 5.5}
   m_SizeDelta: {x: 100, y: 450}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &923580461155099462
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -651,6 +650,7 @@ RectTransform:
   m_Children:
   - {fileID: 5893263698693526515}
   - {fileID: 2715414650421851401}
+  - {fileID: 6618124860144918888}
   - {fileID: 5742227882235803174}
   - {fileID: 6524336993551495502}
   - {fileID: 4848588079369089315}
@@ -1009,11 +1009,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2715414650421851401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: -2.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -350, y: 5.5}
   m_SizeDelta: {x: 100, y: 450}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3751707838530741229
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1513,11 +1513,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2715414650421851401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -2.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -150, y: 5.5}
   m_SizeDelta: {x: 100, y: 450}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4019279427897563978
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1603,11 +1603,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2715414650421851401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: -2.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 250, y: 5.5}
   m_SizeDelta: {x: 100, y: 450}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6200288893374586692
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1966,11 +1966,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2715414650421851401}
+  m_Father: {fileID: 1257849438273946343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -230}
+  m_AnchoredPosition: {x: 0, y: -219.75}
   m_SizeDelta: {x: 1300, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2749623088861059674
@@ -2271,11 +2271,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2715414650421851401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 450, y: -2.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 450, y: 5.5}
   m_SizeDelta: {x: 100, y: 450}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1150399185799411635
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2890,6 +2890,7 @@ GameObject:
   - component: {fileID: 7675183180438934323}
   - component: {fileID: 6310550690890739782}
   - component: {fileID: 8842988381833534361}
+  - component: {fileID: 6868798168090814551}
   m_Layer: 5
   m_Name: FightScene_Win
   m_TagString: Untagged
@@ -2966,3 +2967,29 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &6868798168090814551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854886590751856851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ceb1874ca0023448ed96d985432811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FightScene_Win
+  Graphs:
+  - {fileID: 8231482220018213054}
+  - {fileID: 7735311123675021781}
+  - {fileID: 1564908140311260010}
+  - {fileID: 624222390709789021}
+  - {fileID: 1093484490755364393}
+  GraphText:
+  - {fileID: 707250167609923995}
+  - {fileID: 1137817847061908536}
+  - {fileID: 4849453672637050211}
+  - {fileID: 6533210705031049819}
+  - {fileID: 6410729217695292270}
+  TimeText: {fileID: 290037110106363407}
+  PlayerHP: {fileID: 4170185617812561548}

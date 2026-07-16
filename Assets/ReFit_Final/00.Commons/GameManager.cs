@@ -39,8 +39,6 @@ public class GameManager : MonoBehaviour
         TitleScene,
         AdventureScene,
         FightScene,
-        AxeScene,
-        SwimScene
     }
 
     private GameScene _currentScene;
@@ -142,7 +140,6 @@ public class GameManager : MonoBehaviour
         //유저 프로필 가져오기
         MyProfileManager.Login("testReFit@gmail.com", "testReFit", SystemInfo.deviceUniqueIdentifier, onLoginSuccess: () => {
             MyProfileManager.CreateTestProfile(onComplete: () => {
-
                 // 2. 생성이 완벽히 끝난 시점에 비로소 프로필 조회를 실행합니다.
                 MyProfileManager.FetchMyProfile();
 
@@ -215,14 +212,6 @@ public class GameManager : MonoBehaviour
             case GameScene.FightScene:
                 _currentScene = GameScene.FightScene;
                 SceneManager.LoadScene(2);
-                break;
-            case GameScene.AxeScene:
-                _currentScene = GameScene.AxeScene;
-                SceneManager.LoadScene(3);
-                break;
-            case GameScene.SwimScene:
-                _currentScene = GameScene.SwimScene;
-                SceneManager.LoadScene(4);
                 break;
         }
     }

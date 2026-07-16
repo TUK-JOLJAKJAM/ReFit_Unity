@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -93,6 +95,7 @@ public class FightScene_Attack : MonoBehaviour
     /// </summary>
     float attackTime = 0;
     public AttackGrade lastAttackGrade = AttackGrade.Miss;
+    public int[] attackData = new int[5];
     [System.Serializable]
     public enum AttackGrade
     {
@@ -116,6 +119,8 @@ public class FightScene_Attack : MonoBehaviour
                 attackTime <= waitTime / 2 ? AttackGrade.Good :
                 attackTime <= waitTime * 3 / 4 ? AttackGrade.Normal :
                 AttackGrade.Bad;
+
+        attackData[(int)lastAttackGrade]++;
     }
 
     // ==========================================
@@ -177,6 +182,7 @@ public class FightScene_Attack : MonoBehaviour
 
         if(attackTimeCoroutine != null) StopCoroutine(attackTimeCoroutine);
         lastAttackGrade = AttackGrade.Miss;
+        attackData[(int)lastAttackGrade]++;
     }
 
     Coroutine attackTimeCoroutine;

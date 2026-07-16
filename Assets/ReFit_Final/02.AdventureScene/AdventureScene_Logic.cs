@@ -26,4 +26,9 @@ public class AdventureScene_Logic : MonoBehaviour, IReFitGyro
             }
         }
     }
+
+    public void GyroInputDown()
+    {
+        GameManager.instance.ChangeScene(GameManager.GameScene.TitleScene);
+    }
 }

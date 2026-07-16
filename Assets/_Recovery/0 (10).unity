@@ -420,6 +420,7 @@ MonoBehaviour:
   fightScene_Guard: {fileID: 880419407}
   fightScene_Shield: {fileID: 880419405}
   playerUI: {fileID: 297213507}
+  playTime: 0
 --- !u!1001 &115656402
 PrefabInstance:
   m_ObjectHideFlags: 0
