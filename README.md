@@ -127,3 +127,6 @@
 # 수정 시 주의 내용
 1. Inspector에 할당해서 코드에서 사용하는 public 변수 (컴포넌트나 GameObject)는 자료형을 변경하거나 하면 Inspector에서 한 할당이 풀릴 수 있다. 그런 경우 다시 할당해줘야 한다.
 2. 코드에서 ChildrenCount를 사용하는 경우, 혹은 transform.GetChild[0]같이 인덱스로 자식을 불러오는 경우, 그 부모 오브젝트의 자식의 순서를 바꾸거나 자식을 추가, 삭제 하면 코드가 꼬일 수 있다. UIManager의 경우 방지코드를 써놨는데, 다른 곳에선 안해놨을 수도 있으니 조심
+
+# 백엔드 수정 요청
+- GameHistory저장할 때 primaryPart입력 부분 ("SHOULDER", "WAIST"등...)에 "BICEPS_BRACHII" 추가
