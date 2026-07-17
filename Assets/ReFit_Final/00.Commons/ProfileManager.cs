@@ -73,7 +73,14 @@ public class UserProfile
 #region 2. 프로필 매니저 클래스
 public class ProfileManager : MonoBehaviour, IReFitManager
 {
-    private readonly string baseURL = "http://43.200.20.216";
+    [Header("[ Runtime Connection ]")]
+    [SerializeField] private string defaultApiBaseUrl = "http://43.200.20.216";
+    [SerializeField] private bool allowCompatibilityDemoLogin = true;
+    [SerializeField] private string compatibilityDemoEmail = "testReFit@gmail.com";
+    [SerializeField] private string compatibilityDemoPassword = "testReFit";
+
+    private string baseURL => RefitRuntimeConfig.ResolveApiBaseUrl(defaultApiBaseUrl);
+    public bool UsingCompatibilityDemoAccount { get; private set; }
 
     // 인증 토큰 보관 변수
     public string _authToken { get; private set; }
@@ -88,6 +95,42 @@ public class ProfileManager : MonoBehaviour, IReFitManager
 
     // 외부 스크립트에서 프로필 데이터를 읽을 때 사용하는 프로퍼티
     public UserProfile CurrentProfile => _currentProfile;
+
+    /// <summary>
+    /// 운영에서는 실행 인자, 환경 변수 또는 refit-runtime.json의 토큰/계정을 사용합니다.
+    /// 설정이 없을 때만 기존 데모 계정으로 호환 로그인합니다.
+    /// </summary>
+    public void Authenticate(string deviceId, Action onLoginSuccess = null)
+    {
+        string accessToken = RefitRuntimeConfig.ResolveAccessToken();
+        if (!string.IsNullOrWhiteSpace(accessToken))
+        {
+            _authToken = accessToken.Trim();
+            _refreshToken = RefitRuntimeConfig.ResolveRefreshToken() ?? string.Empty;
+            UsingCompatibilityDemoAccount = false;
+            onLoginSuccess?.Invoke();
+            return;
+        }
+
+        string configuredEmail = RefitRuntimeConfig.ResolveEmail();
+        string configuredPassword = RefitRuntimeConfig.ResolvePassword();
+        if (!string.IsNullOrWhiteSpace(configuredEmail) && !string.IsNullOrWhiteSpace(configuredPassword))
+        {
+            UsingCompatibilityDemoAccount = false;
+            Login(configuredEmail, configuredPassword, deviceId, onLoginSuccess);
+            return;
+        }
+
+        if (allowCompatibilityDemoLogin)
+        {
+            UsingCompatibilityDemoAccount = true;
+            Login(compatibilityDemoEmail, compatibilityDemoPassword, deviceId, onLoginSuccess);
+            return;
+        }
+
+        UsingCompatibilityDemoAccount = false;
+        ReFitLogger.Warning("[ProfileManager] 인증 설정이 없어 오프라인 모드로 시작합니다.");
+    }
 
     /// <summary>
     /// 앱이 종료될 때 자동으로 서버 로그아웃을 호출합니다.

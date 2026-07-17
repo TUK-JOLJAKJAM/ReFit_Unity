@@ -139,13 +139,16 @@ public class GameManager : MonoBehaviour
         var gyroUI = MyUIManager.GetGyroUI(titleMenu);
         SetGyroInput(gyroUI, 2.0f);
 
-        //유저 프로필 가져오기
-        MyProfileManager.Login("testReFit@gmail.com", "testReFit", SystemInfo.deviceUniqueIdentifier, onLoginSuccess: () => {
-            MyProfileManager.CreateTestProfile(onComplete: () => {
-                // 2. 생성이 완벽히 끝난 시점에 비로소 프로필 조회를 실행합니다.
+        // 운영 인증은 실행 인자/환경 변수/로컬 설정으로 주입하고, 데모 계정은 호환 fallback으로만 사용합니다.
+        MyProfileManager.Authenticate(SystemInfo.deviceUniqueIdentifier, onLoginSuccess: () => {
+            if (MyProfileManager.UsingCompatibilityDemoAccount)
+            {
+                MyProfileManager.CreateTestProfile(onComplete: () => MyProfileManager.FetchMyProfile());
+            }
+            else
+            {
                 MyProfileManager.FetchMyProfile();
-
-            });
+            }
         });
 
         yield return null;
