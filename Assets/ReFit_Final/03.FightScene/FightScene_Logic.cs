@@ -210,6 +210,12 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
                 }
             }
 
+            // 기존 판정에는 관여하지 않고, 움직임이 시작된 순간부터 센서 시퀀스만 수집합니다.
+            if (gaugeController.uiState == FightScene_Attack.UIState.NoCharged && Mathf.Abs(GyroValue) >= 0.1f)
+            {
+                gaugeController.BeginActionCapture(CurrentSkill);
+            }
+
             // 1. 공격 대기(0.5초 이내) 창이 열려있고, 자이로 조건이 충족되면 즉시 취소 후 리셋
             if (gaugeController.uiState == FightScene_Attack.UIState.Charged && GyroValue <= 0.1f)
             {
@@ -326,7 +332,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     {
         // 값 계산
         int maxSelected = Mathf.Max(SkillSelectCount);
-        string primaryPart = maxSelected == SkillSelectCount[0] ? "LEG" ://[수정필요]ARM이 되어야 하는데(아니면 의학용어 이두근) 없어서 임시로 LEG로 해놓음.
+        string primaryPart = maxSelected == SkillSelectCount[0] ? "BICEPS_BRACHII" :
             maxSelected == SkillSelectCount[1] ? "SHOULDER" :
             "WAIST";
         int score = gaugeController.attackData[1] + gaugeController.attackData[2] * 2 + gaugeController.attackData[3] * 3 + gaugeController.attackData[4] * 4; //레전드 대충 점수계산.
@@ -335,23 +341,21 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         int failCount = gaugeController.attackData[0];
 
         // 1. 내부 딕셔너리 및 리스트 정의
-        var summary = new Dictionary<string, string> { 
-            { "stageLevel", $"{GameManager.instance.MyAdventureManager.currentStageLevel}" } 
+        var summary = new Dictionary<string, object> {
+            { "stageLevel", GameManager.instance.MyAdventureManager.currentStageLevel },
+            { "protocolVersion", "2.0" },
+            { "sensorSampleRateHz", 30 },
+            { "testMode", GameManager.instance.MyTestHandler.isTestMode }
         };
 
         var bodyParts = new List<BodyPartSummary>
         {      
             new BodyPartSummary
             {
-                //이 부분은 웹에서 따로 체크하는게 좋을 듯 싶음
-                //아래는 더미데이터? 아무튼
-                //보낸다고 한다면 몸 체크 씬 만들어서 ROM만 전송하는건 유의미할듯
-                bodyPart = "SHOULDER",
+                bodyPart = primaryPart,
                 side = "BOTH",
-                metrics = new Dictionary<string, string>
-                {
-                    { "rom_angle", "120" }
-                }
+                // 측정하지 않은 통증과 ROM은 0이나 고정값으로 만들지 않습니다.
+                metrics = new Dictionary<string, object>()
             }  
         
         };
@@ -383,21 +387,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     long EndTime;
     long GetTime()
     {
-        // 1. 현재 로컬 시간 가져오기
-        DateTime now = DateTime.UtcNow;
-
-        // 2. 지정한 포맷으로 변환 ("yyyyMMddHHmmssff")
-        string customFormat = now.ToString("yyyyMMddHHmmssff");
-
-        if(long.TryParse(customFormat, out long value))
-        {
-            return value;
-        }
-        else
-        {
-            ReFitLogger.Error("시간 변환에 실패했습니다.");
-            return 1234;
-        }
+        return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
     }
 
     //----------InFight상태-------------

@@ -1,4 +1,4 @@
-using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class FightScene_Attack : MonoBehaviour
 {
+    private const float SensorSampleIntervalSec = 1f / 30f;
+    private const int MaxSamplesPerAction = 1800; // 비정상 장시간 입력 시에도 동작당 최대 60초
+
     public GameObject SkillRed;
     public GameObject SkillGreen;
     public GameObject SkillBlue;
@@ -32,10 +35,17 @@ public class FightScene_Attack : MonoBehaviour
     // 내부 제어용 코루틴 참조 변수
     private Coroutine gaugeCoroutine;
     private Coroutine attackWaitCoroutine;
+    private FightScene_Logic.Skill activeSkill;
+    private bool isCapturingAction;
+    private long actionStartedAtMs;
+    private float nextSampleAt;
+    private int nextActionId = 1;
+    private readonly List<SensorSampleRecord> currentSamples = new List<SensorSampleRecord>();
 
 
     public void SetFightUI(FightScene_Logic.Skill type)
     {
+        activeSkill = type;
         uiState = UIState.NoCharged;
 
         GaugeFullSize = Gauge.rectTransform.sizeDelta;
@@ -97,7 +107,7 @@ public class FightScene_Attack : MonoBehaviour
     float attackTime = 0;
     public AttackGrade lastAttackGrade = AttackGrade.Miss;
     public int[] attackData = new int[5];
-    public List<Dictionary<string, string>> TotalAttackData = new List<Dictionary<string, string>>();
+    public List<GameActionRecord> TotalAttackData = new List<GameActionRecord>();
 
     [System.Serializable]
     public enum AttackGrade
@@ -124,12 +134,7 @@ public class FightScene_Attack : MonoBehaviour
                 AttackGrade.Bad;
 
         attackData[(int)lastAttackGrade]++;
-        TotalAttackData.Add(new Dictionary<string, string> {
-            { 
-                "attackGrade, GyroQuaternion, attackTime", 
-                $"{lastAttackGrade}, {GameManager.instance.MyGyroManager.GetOffsetGyro()}, {attackTime}"
-            } 
-        });
+        CompleteActionCapture(lastAttackGrade, attackTime);
     }
 
     // ==========================================
@@ -193,12 +198,7 @@ public class FightScene_Attack : MonoBehaviour
         lastAttackGrade = AttackGrade.Miss;
         attackData[(int)lastAttackGrade]++;
 
-        TotalAttackData.Add(new Dictionary<string, string> {
-            {
-                "attackGrade, GyroQuaternion, attackTime",
-                $"{lastAttackGrade}, {GameManager.instance.MyGyroManager.GetOffsetGyro()}, {attackTime}"
-            }
-        });
+        CompleteActionCapture(lastAttackGrade, attackTime);
     }
 
     Coroutine attackTimeCoroutine;
@@ -210,6 +210,93 @@ public class FightScene_Attack : MonoBehaviour
         {
             attackTime += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    private void Update()
+    {
+        if (!isCapturingAction || Time.unscaledTime < nextSampleAt) return;
+        CaptureSensorSample();
+        nextSampleAt = Time.unscaledTime + SensorSampleIntervalSec;
+    }
+
+    /// <summary>
+    /// 게임 판정에는 관여하지 않고 현재 공격 동작의 센서 시퀀스만 수집합니다.
+    /// 여러 번 호출되어도 이미 수집 중이면 무시합니다.
+    /// </summary>
+    public void BeginActionCapture(FightScene_Logic.Skill skill)
+    {
+        if (isCapturingAction) return;
+        activeSkill = skill;
+        isCapturingAction = true;
+        actionStartedAtMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        nextSampleAt = Time.unscaledTime;
+        currentSamples.Clear();
+        CaptureSensorSample();
+    }
+
+    private void CompleteActionCapture(AttackGrade grade, float reactionTimeSec)
+    {
+        if (!isCapturingAction) BeginActionCapture(activeSkill);
+        CaptureSensorSample();
+        long endedAtMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+        TotalAttackData.Add(new GameActionRecord
+        {
+            actionId = (nextActionId++).ToString(),
+            actionType = "ATTACK",
+            exerciseCode = ExerciseCode(activeSkill),
+            direction = "OUT_AND_RETURN",
+            startedAtMs = actionStartedAtMs,
+            endedAtMs = endedAtMs,
+            durationMs = Math.Max(endedAtMs - actionStartedAtMs, 0),
+            success = grade != AttackGrade.Miss,
+            attackGrade = grade.ToString().ToUpperInvariant(),
+            reactionTimeMs = Mathf.Max(reactionTimeSec * 1000f, 0f),
+            samples = new List<SensorSampleRecord>(currentSamples)
+        });
+
+        isCapturingAction = false;
+        currentSamples.Clear();
+    }
+
+    private void CaptureSensorSample()
+    {
+        if (currentSamples.Count >= MaxSamplesPerAction) return;
+
+        Quaternion q;
+        if (GameManager.instance.MyTestHandler.isTestMode)
+        {
+            Vector2 test = GameManager.instance.GyroHud.TestGyro;
+            q = Quaternion.Euler(test.y * 90f, test.x * 90f, 0f);
+        }
+        else
+        {
+            q = GameManager.instance.MyGyroManager.GetOffsetGyro();
+        }
+
+        currentSamples.Add(new SensorSampleRecord
+        {
+            timestampMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            qx = q.x,
+            qy = q.y,
+            qz = q.z,
+            qw = q.w
+        });
+    }
+
+    private static string ExerciseCode(FightScene_Logic.Skill skill)
+    {
+        switch (skill)
+        {
+            case FightScene_Logic.Skill.Red:
+                return "BICEPS_CURL";
+            case FightScene_Logic.Skill.Green:
+                return "SHOULDER_FLEXION";
+            case FightScene_Logic.Skill.Blue:
+                return "WAIST_ROTATION";
+            default:
+                return "UNKNOWN";
         }
     }
 }

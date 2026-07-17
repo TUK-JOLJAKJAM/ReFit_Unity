@@ -12,9 +12,11 @@ public class DataManager : MonoBehaviour, IReFitManager
     public void ResetReFitManager() { }
     public void UpdateReFitManager() { }
 
-    // --- DataManager 구현 ---
-    // 실제 전체 API 경로로 주소를 결합하여 수정했습니다.
-    private const string API_URL = "http://43.200.20.216/api/v1/game-histories";
+    // 기본 주소는 기존 데모와 호환하고, 실행 인자/환경 변수/로컬 설정으로 교체할 수 있습니다.
+    [SerializeField] private string defaultApiBaseUrl = "http://43.200.20.216";
+
+    private string GameHistoryUrl =>
+        $"{RefitRuntimeConfig.ResolveApiBaseUrl(defaultApiBaseUrl)}/api/v1/game-histories";
 
     /// <summary>
     /// 매개변수로 개별 값을 받아 게임 히스토리를 서버에 저장합니다.
@@ -31,14 +33,15 @@ public class DataManager : MonoBehaviour, IReFitManager
         int actionCount,
         int successCount,
         int failCount,
-        Dictionary<string, string> sessionSummary,
+        Dictionary<string, object> sessionSummary,
         List<BodyPartSummary> bodyPartSummaries,
-        List<Dictionary<string, string>> gameData,
+        List<GameActionRecord> gameData,
         Action<bool, string> onComplete = null)
     {
         // 1. 받은 매개변수들로 DTO 객체 생성 및 데이터 매핑
         GameHistoryRequest requestData = new GameHistoryRequest
         {
+            schemaVersion = "2.0",
             gameId = gameId,
             gameName = gameName,
             gameVersion = gameVersion,
@@ -65,7 +68,7 @@ public class DataManager : MonoBehaviour, IReFitManager
         string jsonPayload = JsonConvert.SerializeObject(data);
         byte[] jsonBytes = Encoding.UTF8.GetBytes(jsonPayload);
 
-        using (UnityWebRequest request = new UnityWebRequest(API_URL, "POST"))
+        using (UnityWebRequest request = new UnityWebRequest(GameHistoryUrl, "POST"))
         {
             request.uploadHandler = new UploadHandlerRaw(jsonBytes);
             request.downloadHandler = new DownloadHandlerBuffer();
@@ -174,6 +177,7 @@ public class DataManager : MonoBehaviour, IReFitManager
 [Serializable]
 public class GameHistoryRequest
 {
+    public string schemaVersion;
     public string gameId;
     public string gameName;
     public string gameVersion;
@@ -186,9 +190,9 @@ public class GameHistoryRequest
     public int actionCount;
     public int successCount;
     public int failCount;
-    public Dictionary<string, string> sessionSummary;
+    public Dictionary<string, object> sessionSummary;
     public List<BodyPartSummary> bodyPartSummaries;
-    public List<Dictionary<string, string>> gameData;
+    public List<GameActionRecord> gameData;
 }
 
 [Serializable]
@@ -196,12 +200,38 @@ public class BodyPartSummary
 {
     public string bodyPart;
     public string side;
-    public int pain0to10;
-    public int stiffness0to10;
-    public int fatigue0to10;
-    public bool swelling;
+    public int? pain0to10;
+    public int? stiffness0to10;
+    public int? fatigue0to10;
+    public bool? swelling;
     public string notes;
-    public Dictionary<string, string> metrics;
+    public Dictionary<string, object> metrics;
+}
+
+[Serializable]
+public class GameActionRecord
+{
+    public string actionId;
+    public string actionType;
+    public string exerciseCode;
+    public string direction;
+    public long startedAtMs;
+    public long endedAtMs;
+    public long durationMs;
+    public bool success;
+    public string attackGrade;
+    public float reactionTimeMs;
+    public List<SensorSampleRecord> samples = new List<SensorSampleRecord>();
+}
+
+[Serializable]
+public class SensorSampleRecord
+{
+    public long timestampMs;
+    public float qx;
+    public float qy;
+    public float qz;
+    public float qw;
 }
 
 [Serializable]
