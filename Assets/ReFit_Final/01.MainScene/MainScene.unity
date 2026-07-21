@@ -26113,7 +26113,7 @@ PrefabInstance:
       objectReference: {fileID: 533390836}
     - target: {fileID: 6925462851941075201, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
       propertyPath: isTestMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7334617499282510930, guid: c190162e3b59c1c48a44e48e5e718739, type: 3}
       propertyPath: m_Name

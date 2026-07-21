@@ -618,6 +618,8 @@ MonoBehaviour:
   hudDown: {fileID: 2600741742700007402}
   hudLeft: {fileID: 8728349809922688633}
   hudRight: {fileID: 1340861598498539297}
+  inputTriggerTime: 0
+  TestGyro: {x: 0, y: 0}
   testCircle: {fileID: 1683515228346924483}
 --- !u!1 &5027488935941912772
 GameObject:
