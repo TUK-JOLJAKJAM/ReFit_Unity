@@ -32,6 +32,10 @@ public class FightScene_Attack : MonoBehaviour
         Charged
     }
 
+    public AudioSource SFX;
+    public AudioClip MissSound;
+    public AudioClip ChargeSound;
+
     // 내부 제어용 코루틴 참조 변수
     private Coroutine gaugeCoroutine;
     private Coroutine attackWaitCoroutine;
@@ -159,6 +163,8 @@ public class FightScene_Attack : MonoBehaviour
             Gauge.color = GoldColor;
             uiState = UIState.Charged;
 
+            SFX.PlayOneShot(ChargeSound);
+
             // 게이지가 다 차면 자동으로 공격 대기 코루틴 시작
             attackWaitCoroutine = StartCoroutine(Co_AttackWait());
         }
@@ -199,6 +205,8 @@ public class FightScene_Attack : MonoBehaviour
         lastAttackGrade = AttackGrade.Miss;
         attackText();
         attackData[(int)lastAttackGrade]++;
+
+        SFX.PlayOneShot(MissSound);
 
         CompleteActionCapture(lastAttackGrade, attackTime);
     }
