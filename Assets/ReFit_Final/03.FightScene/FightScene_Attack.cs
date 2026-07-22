@@ -46,7 +46,7 @@ public class FightScene_Attack : MonoBehaviour
     private int nextActionId = 1;
     private readonly List<SensorSampleRecord> currentSamples = new List<SensorSampleRecord>();
 
-
+    public GameObject[] Acts;
     public void SetFightUI(FightScene_Logic.Skill type)
     {
         activeSkill = type;
@@ -60,22 +60,29 @@ public class FightScene_Attack : MonoBehaviour
         SkillGreen.SetActive(false);
         SkillBlue.SetActive(false);
 
+        Acts[0].SetActive(false);
+        Acts[1].SetActive(false);
+        Acts[2].SetActive(false);
+
         switch (type)
         {
             case FightScene_Logic.Skill.Red:
                 Gauge.color = RedColor;
                 DefaultColor = RedColor;
                 SkillRed.SetActive(true);
+                Acts[0].SetActive(true);
                 break;
             case FightScene_Logic.Skill.Green:
                 Gauge.color = GreenColor;
                 DefaultColor = GreenColor;
                 SkillGreen.SetActive(true);
+                Acts[1].SetActive(true);
                 break;
             case FightScene_Logic.Skill.Blue:
                 Gauge.color = BlueColor;
                 DefaultColor = BlueColor;
                 SkillBlue.SetActive(true);
+                Acts[2].SetActive(true);
                 break;
         }
     }
