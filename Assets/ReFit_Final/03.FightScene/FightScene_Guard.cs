@@ -37,10 +37,13 @@ public class FightScene_Guard : MonoBehaviour
         }
     }
 
+    public AudioSource audioSource;
+    public AudioClip clip;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ReFitLogger.Info("적공격충돌");
         Destroy(collision.gameObject);
         EnemyCount--;
+        audioSource.PlayOneShot(clip);
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 public class FightScene_Shield : MonoBehaviour
 {
     public FightScene_PlayerUI playerUI;
+
+    public AudioSource audioSource;
+    public AudioClip clip;
     // --- 적 UI 삭제 ---
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -11,6 +14,7 @@ public class FightScene_Shield : MonoBehaviour
         guardPoint++;
         fightScene_Guard.EnemyCount--;
         playerUI.UpdateShieldBar(guardPoint);
+        audioSource.PlayOneShot(clip);
     }
 
     // --- 가드포인트 ---
