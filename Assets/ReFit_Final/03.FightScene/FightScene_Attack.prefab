@@ -280,6 +280,16 @@ MonoBehaviour:
   GaugeFullSize: {x: 0, y: 0}
   GaugeSmallSize: {x: 0, y: 0}
   uiState: 0
+  lastAttackGrade: 0
+  attackData: 0000000000000000000000000000000000000000
+  TotalAttackData: []
+  waitTime: 1
+  attackTexts:
+  - {fileID: 6826112529811739081, guid: 86c92f07f6506b3449f587ca3f508900, type: 3}
+  - {fileID: 5519625966445445905, guid: 22dea9af118ff90438356ca29b7d7434, type: 3}
+  - {fileID: 1020170322780261111, guid: 8b173c984b197ef42aec7e1fadef6871, type: 3}
+  - {fileID: 5148091963431496038, guid: 36bf757ed1f9bcc46b623e13884806fc, type: 3}
+  - {fileID: 2132386322674260069, guid: 5f898e8d0aad3b842a7127aa49d52c2d, type: 3}
 --- !u!1 &7451401688404614110
 GameObject:
   m_ObjectHideFlags: 0

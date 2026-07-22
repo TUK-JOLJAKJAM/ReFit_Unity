@@ -132,6 +132,7 @@ public class FightScene_Attack : MonoBehaviour
                 attackTime <= waitTime / 2 ? AttackGrade.Good :
                 attackTime <= waitTime * 3 / 4 ? AttackGrade.Normal :
                 AttackGrade.Bad;
+        attackText();
 
         attackData[(int)lastAttackGrade]++;
         CompleteActionCapture(lastAttackGrade, attackTime);
@@ -196,6 +197,7 @@ public class FightScene_Attack : MonoBehaviour
 
         if(attackTimeCoroutine != null) StopCoroutine(attackTimeCoroutine);
         lastAttackGrade = AttackGrade.Miss;
+        attackText();
         attackData[(int)lastAttackGrade]++;
 
         CompleteActionCapture(lastAttackGrade, attackTime);
@@ -298,5 +300,13 @@ public class FightScene_Attack : MonoBehaviour
             default:
                 return "UNKNOWN";
         }
+    }
+
+    //판정 텍스트
+    public GameObject[] attackTexts;
+
+    public void attackText()
+    {
+        Destroy(Instantiate(attackTexts[(int)lastAttackGrade], this.transform), 0.7f);
     }
 }
