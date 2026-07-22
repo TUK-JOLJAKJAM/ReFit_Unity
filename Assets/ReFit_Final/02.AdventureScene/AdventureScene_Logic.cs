@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class AdventureScene_Logic : MonoBehaviour, IReFitGyro
 {
+    public AdventureScene ui;
+    private void Start()
+    {
+        ui.SetPointer();
+    }
+
     //위 입력 시 입장 구현하기
     public void GyroInputUp()
     {

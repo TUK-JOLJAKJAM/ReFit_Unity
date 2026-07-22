@@ -123,6 +123,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
                 _fightCoroutine = StartCoroutine(GuardCoroutine());
                 break;
             case FightState.Win:
+                GameManager.instance.MyAdventureManager.NextLevel();
                 _fightCoroutine = StartCoroutine(WinCoroutine());
                 StopCoroutine(playTimeRoutine);
                 break;
@@ -227,7 +228,8 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
                 if (Enemy.monsterHP <= 0)
                 {
-                    SetFightState(FightState.Win);
+                    if (GameManager.instance.MyAdventureManager.currentStageLevel == 5) SetFightState(FightState.Lose);//Exit했을 때 타이틀로 가게끔
+                    else SetFightState(FightState.Win);
                     yield break; // 몬스터가 죽었다면 코루틴 즉시 완전 종료
                 }
 
@@ -289,6 +291,11 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
 
         Enemy.Attack();
         Player.Hurt(damage, guardPoint);
+        if(Player.hp <= 0)
+        {
+            SetFightState(FightState.Lose);
+            yield break;
+        }
         yield return null;
 
         playerUI.UpdateShieldBar(0);

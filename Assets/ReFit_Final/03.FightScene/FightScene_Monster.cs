@@ -3,6 +3,7 @@ using UnityEngine;
 public class FightScene_Monster : MonoBehaviour
 {
     float defaultHp = 100f;
+    float leveledHP = 0f;
     public float monsterHP = 0;
     public FightScene_Logic.Skill weakNess;
 
@@ -17,7 +18,12 @@ public class FightScene_Monster : MonoBehaviour
     public void SetMonster(int level, FightScene_Logic.Skill type)
     {
         monsterHP = level * 0.3f * defaultHp;//레벨디자인 할 떄 고치기
+        leveledHP = monsterHP;
         weakNess = type;
+        HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 158);
+
+        SetColor(weakNess);
+
     }
 
     public void Attack()
@@ -26,6 +32,7 @@ public class FightScene_Monster : MonoBehaviour
         Destroy(Instantiate(AttackEffect, this.transform), 1.0f);
     }
 
+    public RectTransform HPBar;
     public void Hurt(float damage, FightScene_Logic.Skill type)
     {
         switch (type)
@@ -41,12 +48,34 @@ public class FightScene_Monster : MonoBehaviour
                 break;
         }
 
+        if (type == weakNess) damage = damage * 1.2f;
+
         monsterHP -= damage;
+        HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 158*(monsterHP/leveledHP));
 
         if (monsterHP <= 1)
         {
             monsterHP = 0;
             animator.SetTrigger("die");
+        }
+    }
+
+    public Color Red;
+    public Color Blue;
+    public Color Green;
+
+    void SetColor(FightScene_Logic.Skill type)
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        switch (type)
+        {
+            case FightScene_Logic.Skill.Red:
+                foreach (Renderer renderer in renderers) renderer.material.color = Red; break;
+            case FightScene_Logic.Skill.Blue:
+                foreach (Renderer renderer in renderers) renderer.material.color = Blue; break;
+            case FightScene_Logic.Skill.Green:
+                foreach (Renderer renderer in renderers) renderer.material.color = Green; break;
         }
     }
 }

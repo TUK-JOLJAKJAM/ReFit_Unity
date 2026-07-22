@@ -21,7 +21,8 @@ public class AdventureManager : MonoBehaviour, IReFitManager
 
     //--- 게임 정보 ---
     public Node[] RandomNode { get; private set; }
-    public int currentStageLevel { get; private set; }
+
+    [SerializeField] public int currentStageLevel;
     public int RedGauageLevel { get; private set; }
     public int BlueGauageLevel { get; private set; }
     public int GreenGauageLevel { get; private set; }
@@ -74,6 +75,11 @@ public class AdventureManager : MonoBehaviour, IReFitManager
         RedGauageLevel = 0;
         BlueGauageLevel = 0;
         GreenGauageLevel = 0;
+    }
+
+    public void NextLevel()
+    {
+        if(currentStageLevel < 5)currentStageLevel++;
     }
     #endregion
 }

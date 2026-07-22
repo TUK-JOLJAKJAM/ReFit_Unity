@@ -17,6 +17,7 @@ public class FightScene_Win : MonoBehaviour
             Graphs[i].anchoredPosition = newPos;
         }
     }
+
     /// <summary>
     /// 
     /// </summary>
