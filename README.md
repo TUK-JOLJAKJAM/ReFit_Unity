@@ -108,10 +108,10 @@
 2. [o][공통] 현재 어떤 입력이 가능한지 알려주는 GUI 필요.
 3. [o][FightScene] SkillSelect 스킬 선택 순서 좀 꼬여서 수정 필요.
 4. [o][FightScene] Attack에서 공격 시 판정을 알려주는 GUI필요.
-5. [-][FightScene] 적 HP GUI 필요.
-6. [-][FightScene] 적 약점을 표시하는 GUI 필요.
+5. [o][FightScene] 적 HP GUI 필요.
+6. [o][FightScene] 적 약점을 표시하는 GUI 필요.
 7. [-][FightScene] 현재 스킬의 동작이 어떤 동작인지 알려주는 GUI 필요.
-8. [-][FightScene] Win후 AdventureScene으로 넘어갈 때 챕터 이동 필요.(stageLevel 변수 값과 화살표 UI 위치만 옮기면 됨)
+8. [o][FightScene] Win후 AdventureScene으로 넘어갈 때 챕터 이동 필요.(stageLevel 변수 값과 화살표 UI 위치만 옮기면 됨)
 9. [-][FightScene] Boss 스테이지 모델 바꾸기
 10. [-][MainScene] Profile, Options UI 만들기
 11. [-][MainScene] 게임 종료 만들기
