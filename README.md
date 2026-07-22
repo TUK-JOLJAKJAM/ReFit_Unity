@@ -106,8 +106,8 @@
 [다른 파트와 무관]
 1. [-][공통] 자이로 입력 차징 GUI 필요. 얼마나 더 해당 방향으로의 입력을 주어야 입력이 되는 지가 표시되어야 UX가 좋음.
 2. [o][공통] 현재 어떤 입력이 가능한지 알려주는 GUI 필요.
-3. [-][FightScene] SkillSelect 스킬 선택 순서 좀 꼬여서 수정 필요.
-4. [-][FightScene] Attack에서 공격 시 판정을 알려주는 GUI필요.
+3. [o][FightScene] SkillSelect 스킬 선택 순서 좀 꼬여서 수정 필요.
+4. [o][FightScene] Attack에서 공격 시 판정을 알려주는 GUI필요.
 5. [-][FightScene] 적 HP GUI 필요.
 6. [-][FightScene] 적 약점을 표시하는 GUI 필요.
 7. [-][FightScene] 현재 스킬의 동작이 어떤 동작인지 알려주는 GUI 필요.
