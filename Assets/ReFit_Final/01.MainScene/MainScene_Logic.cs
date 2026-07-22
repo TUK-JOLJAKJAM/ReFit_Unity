@@ -8,15 +8,18 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
     {
         None, // 초기 상태
         Adventure, // 주요 컨텐츠 : 모험
-        Profile, // 도끼 휘두르기
-        Options // 성벽 지키기(회피 훈련 으로 변경 예정)
+        Profile,
+        Web
     }
 
     MenuState currentMenu = MenuState.None;
 
     //-----------------IReFitGyro----------------
+    bool isProfileOptionUIActive = false;
     public void GyroInputLeft()
     {
+        if (isProfileOptionUIActive) return;
+
         MainScene_Player.PathEnum targetPath = MainScene_Player.PathEnum.NoneToProfile;
         bool Movable = true;
 
@@ -35,7 +38,7 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
                 currentMenu = MenuState.Adventure;
                 targetPath = MainScene_Player.PathEnum.ProfileToAdventure;
                 break;
-            case MenuState.Options:
+            case MenuState.Web:
                 currentMenu = MenuState.Profile;
                 targetPath = MainScene_Player.PathEnum.OptionsToProfile;
                 break;
@@ -47,6 +50,8 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
 
     public void GyroInputRight()
     {
+        if (isProfileOptionUIActive) return;
+
         MainScene_Player.PathEnum targetPath = MainScene_Player.PathEnum.NoneToProfile;
         bool Movable = true;
 
@@ -55,7 +60,7 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
         switch (currentMenu)
         {
             case MenuState.None:
-                currentMenu = MenuState.Options;
+                currentMenu = MenuState.Web;
                 targetPath = MainScene_Player.PathEnum.NoneToOptions;
                 break;
             case MenuState.Adventure:
@@ -63,10 +68,10 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
                 targetPath = MainScene_Player.PathEnum.AdventureToProfile;
                 break;
             case MenuState.Profile:
-                currentMenu = MenuState.Options;
+                currentMenu = MenuState.Web;
                 targetPath = MainScene_Player.PathEnum.ProfileToOptions;
                 break;
-            case MenuState.Options:
+            case MenuState.Web:
                 Movable = false;
                 break;
         }
@@ -75,6 +80,7 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
         if (Movable) Player.MoveToPosition(targetPath);
     }
 
+    public GameObject ProfileUI;
     public void GyroInputUp()
     {
         switch (currentMenu)
@@ -86,8 +92,25 @@ public class MainScene_Logic : MonoBehaviour, IReFitGyro
                 GameManager.instance.ChangeScene(GameManager.GameScene.AdventureScene);
                 break;
             case MenuState.Profile:
+                ProfileUI.SetActive(true);
+                ProfileUI?.GetComponent<Profile>().SetProfileUI();
+                isProfileOptionUIActive = true;
                 break;
-            case MenuState.Options:
+            case MenuState.Web:
+                Application.OpenURL("http://43.200.20.216");
+                break;
+        }
+    }
+    public void GyroInputDown()
+    {
+        switch (currentMenu)
+        {
+            case MenuState.Profile:
+                ProfileUI.SetActive(false);
+                isProfileOptionUIActive = false;
+                break;
+            case MenuState.Web:
+                Application.Quit();
                 break;
         }
     }

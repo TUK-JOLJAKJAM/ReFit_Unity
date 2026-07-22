@@ -26,6 +26,11 @@ public class TitleMenu : MonoBehaviour, IReFitUI, IReFitGyro
         PressStartButton();
     }
 
+    public void GyroInputDown()
+    {
+        Application.Quit();
+    }
+
     //--------------UI Button Event-----------
     public void PressStartButton()
     {

@@ -91,7 +91,7 @@ public class ProfileManager : MonoBehaviour, IReFitManager
     private const float REFRESH_COOLDOWN_SEC = 5f; // 제한 시간 (5초)
 
     [Header("[ Current User Profile ]")]
-    [SerializeField] private UserProfile _currentProfile;
+    [SerializeField] public UserProfile _currentProfile;
 
     // 외부 스크립트에서 프로필 데이터를 읽을 때 사용하는 프로퍼티
     public UserProfile CurrentProfile => _currentProfile;
