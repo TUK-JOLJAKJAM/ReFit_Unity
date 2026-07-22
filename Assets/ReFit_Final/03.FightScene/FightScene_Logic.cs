@@ -391,7 +391,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
     }
 
     //----------InFight»óÅÂ-------------
-    void ChangeSkillLeft()
+    void ChangeSkillRight()
     {
         switch (CurrentSkill)
         {
@@ -409,7 +409,7 @@ public class FightScene_Logic : MonoBehaviour, IReFitGyro
         SkillUI.SetSkillUI(CurrentSkill);
     }
 
-    void ChangeSkillRight()
+    void ChangeSkillLeft()
     {
         switch (CurrentSkill)
         {
